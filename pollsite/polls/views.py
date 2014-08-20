@@ -17,7 +17,7 @@ def detail(request, poll_id):
     return render(request, 'polls/details.html', {'poll': poll})
 
 def results(request, poll_id):
-    return response("You're looking at the resolts of poll %s" % poll_id)
+    return response("You're looking at the results of poll %s" % poll_id)
 
 def vote(request, poll_id):
     return response("You're voting on poll %s" % poll_id)
