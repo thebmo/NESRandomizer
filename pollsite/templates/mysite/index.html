@@ -1,0 +1,7 @@
+<h1>Hey this is the menu:</h1>
+{% if error_message %}<p><strong>{{ error_message }} </strong</p>{% endif %}
+
+<ul>
+    <li><a href="{% url 'nes:index' %}">NES</a></li>
+    <li><a href="{% url 'polls:index' %}">POLLS</a></li>
+</ul>
