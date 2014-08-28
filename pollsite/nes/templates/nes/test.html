@@ -2,3 +2,10 @@
 {% if games %}
     {{ games.title }}<br />
 {% endif %}
+<br/><br/>
+{% if genres %}
+    <h3>Genre{{genres|pluralize}}:</h3>
+    {% for genre in genres %}
+        {{ genre }}<br />
+    {% endfor %}
+{% endif %}

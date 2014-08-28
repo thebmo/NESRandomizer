@@ -17,7 +17,7 @@ def index(request):
         if s == 'all':
             games = Game.objects.all()
             # game = random.choice(games)
-            
+            genres = request.GET.getlist('genre')
         
-            return render(request, 'nes/test.html', {'games':random.choice(games),})
+            return render(request, 'nes/test.html', {'games':random.choice(games), 'genres':genres})
     return render(request, 'nes/index.html',)
