@@ -15,9 +15,10 @@ def index(request):
     if 'selection' in request.GET:
         s = request.GET['selection']
         if s == 'all':
-            games = Game.objects.all()
+            games = random.choice(Game.objects.all())
             # game = random.choice(games)
+            game_url= str(games.title).replace(' ','+')
             genres = request.GET.getlist('genre')
         
-            return render(request, 'nes/test.html', {'games':random.choice(games), 'genres':genres})
+            return render(request, 'nes/test.html', {'games':games, 'genres':genres, 'game_url':game_url})
     return render(request, 'nes/index.html',)
