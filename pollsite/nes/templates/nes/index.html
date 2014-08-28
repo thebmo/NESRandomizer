@@ -1,37 +1,36 @@
-<h1>NES STUFF!</h1>
-
+<h1>Random NES Game Selector</h1>
 
 <form name="Random NES" action="" method="get">
+    <fieldset style='width:500px'>
+    <legend>Selections</legend>
+        <input type="radio" name="selection" value="all">All
+        <input type="radio" name="selection" value="owned">Owned
+        <input type="radio" name="selection" value="pick">Pick Some
+    </fieldset>
+    <br/>
 
-<fieldset style='width:500px'>
-<legend>Selections</legend>
-<input type="radio" name="selection" value="all">All
-<input type="radio" name="selection" value="pick">Pick Some
-</fieldset>
-<br/>
+    <fieldset style='width:500px'>
+    <legend>Genres</legend>
+        <input type="checkbox" name="genre" value="shooter">shooter
+        <input type="checkbox" name="genre" value="platformer">platformer
+        <input type="checkbox" name="genre" value="adventure">adventure
+        <input type="checkbox" name="genre" value="rpg">rpg
+        <input type="checkbox" name="genre" value="action_rpg">action/rpg
+        <input type="checkbox" name="genre" value="puzzle">puzzle
+    <!-- <input type="checkbox" name="genre" value=""> -->
+    </fieldset>
+    <br />
 
-<fieldset style='width:500px'>
-<legend>Genres</legend>
-<input type="checkbox" name="genre" value="shooter">shooter
-<input type="checkbox" name="genre" value="platformer">platformer
-<input type="checkbox" name="genre" value="adventure">adventure
-<input type="checkbox" name="genre" value="rpg">rpg
-<input type="checkbox" name="genre" value="action_rpg">action/rpg
-<input type="checkbox" name="genre" value="puzzle">puzzle
-<!-- <input type="checkbox" name="genre" value=""> -->
-</fieldset>
-<br />
+    <fieldset style='width:500px'>
+    <legend>Beaten?</legend>
+        <input type="radio" name="beaten" value="yes">Yes
+        <input type="radio" name="beaten" value="no">No
+        <input type="radio" name="beaten" value="both" selected>Both
+    </fieldset>
+    <br />
 
-<fieldset style='width:500px'>
-<legend>Beaten?</legend>
-<input type="radio" name="beaten" value="yes">Yes
-<input type="radio" name="beaten" value="no">No
-<input type="radio" name="beaten" value="both" selected>Both
-</fieldset>
-<br />
-
-<input type="submit" value ="Choose a Game">
-<input type="reset" value = "Reset">
+    <input type="submit" value ="Choose a Game">
+    <input type="reset" value = "Reset">
 </form>
 
 
