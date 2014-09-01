@@ -1,5 +1,13 @@
-<h1>Hey this is the menu:</h1>
+<h1>Hey, {{ user.username }} this is the menu:</h1>
 {% if error_message %}<p><strong>{{ error_message }} </strong</p>{% endif %}
+
+{% if not user %}
+    not logged in
+{% else %}
+    {{user.username}}
+    {{user.first_name}}
+    {{user.last_name}}
+{% endif %}
 
 <ul>
     <li><a href="{% url 'nes:index' %}">NES</a></li>
