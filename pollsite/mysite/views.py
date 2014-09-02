@@ -18,3 +18,6 @@ def index(request):
            return render(request, 'mysite/index.html', {'user':user})
         
     return render(request, 'mysite/index.html',)
+
+def login(request):
+    return render(request, 'mysite/login.html',)
