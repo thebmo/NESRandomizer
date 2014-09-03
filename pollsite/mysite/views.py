@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 # from django.core.urlresolvers import reverse
 from django.views import generic
 
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, logout, login
 
 
 
@@ -19,5 +19,19 @@ def index(request):
         
     return render(request, 'mysite/index.html',)
 
-def login(request):
-    return render(request, 'mysite/login.html',)
+def login_view(request):
+    error=''
+    if 'username' in request.GET:
+        username=request.GET['username']
+        password=request.GET['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return render(request, 'mysite/index.html',)
+        error = 'Login Failed'    
+    return render(request, 'mysite/login.html', {'error':error, 'username':username, 'password':password, })
+
+def logout_view(request):
+    logout(request)
+    # return redirect('mysite/index.html',)
+    return render(request, 'mysite/index.html',)
