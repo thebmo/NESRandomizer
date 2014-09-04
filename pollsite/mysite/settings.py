@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'polls',
     'nes',
+    'registration',
 )
 
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
