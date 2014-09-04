@@ -9,6 +9,8 @@ class Game(models.Model):
     votes = models.IntegerField(default=0)
     def __unicode__(self):
         return self.title
+    class Meta:
+        ordering = ('title',)
     
 class OwnedGame(models.Model):
     game=models.ForeignKey(Game)
