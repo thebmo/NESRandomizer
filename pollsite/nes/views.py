@@ -20,5 +20,5 @@ def index(request):
             game_url= str(games.title).replace(' ','+')
             genres = request.GET.getlist('genre')
         
-            return render(request, 'nes/test.html', {'games':games, 'genres':genres, 'game_url':game_url})
+            return render(request, 'nes/index.html', {'games':games, 'genres':genres, 'game_url':game_url})
     return render(request, 'nes/index.html',)

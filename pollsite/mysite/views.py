@@ -21,6 +21,9 @@ def index(request):
 
 def login_view(request):
     error=''
+    username=''
+    password=''
+    
     if 'username' in request.GET:
         username=request.GET['username']
         password=request.GET['password']

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Game
+from .models import *
 # Register your models here.
 
 class GameAdmin(admin.ModelAdmin):
@@ -11,5 +11,13 @@ class GameAdmin(admin.ModelAdmin):
     list_filter = ['title', 'genre', 'rating']
     search_fields = ['title']
 
-
+class OwnedAdmin(admin.ModelAdmin):
+    fieldsets = [
+        ('Owner Information', {'fields':['user', 'game']}),
+    ]
+    list_display = ('user', 'game')
+    list_filter = ('user', 'game')
+    
+    
 admin.site.register(Game,GameAdmin)
+admin.site.register(OwnedGame,OwnedAdmin)

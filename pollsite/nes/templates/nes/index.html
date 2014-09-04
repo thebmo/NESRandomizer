@@ -1,38 +1,51 @@
 <h1>Random NES Game Selector</h1>
+<table>
+<tr><td>
+    <form name="Random NES" action="" method="get">
+        <fieldset style='width:500px'>
+        <legend>Selections</legend>
+            <input type="radio" name="selection" value="all" checked>All
+            <input type="radio" name="selection" value="owned">Owned
+            <input type="radio" name="selection" value="pick">Pick Some
+        </fieldset>
+        <br/>
+        
+        <fieldset style='width:500px'>
+        <legend>Beaten?</legend>
+            <input type="radio" name="beaten" value="both" checked>Both
+            <input type="radio" name="beaten" value="yes">Yes
+            <input type="radio" name="beaten" value="no">No
+        </fieldset>
+        <br />
+        
+        <fieldset style='width:500px'>
+        <legend>Genres</legend>
+            <input type="checkbox" name="genre" value="shooter">shooter
+            <input type="checkbox" name="genre" value="platformer">platformer
+            <input type="checkbox" name="genre" value="adventure">adventure
+            <input type="checkbox" name="genre" value="rpg">rpg
+            <input type="checkbox" name="genre" value="action_rpg">action/rpg
+            <input type="checkbox" name="genre" value="puzzle">puzzle
+        <!-- <input type="checkbox" name="genre" value=""> -->
+        </fieldset>
+        <br />
 
-<form name="Random NES" action="" method="get">
-    <fieldset style='width:500px'>
-    <legend>Selections</legend>
-        <input type="radio" name="selection" value="all" checked>All
-        <input type="radio" name="selection" value="owned">Owned
-        <input type="radio" name="selection" value="pick">Pick Some
-    </fieldset>
-    <br/>
-
-    <fieldset style='width:500px'>
-    <legend>Genres</legend>
-        <input type="checkbox" name="genre" value="shooter">shooter
-        <input type="checkbox" name="genre" value="platformer">platformer
-        <input type="checkbox" name="genre" value="adventure">adventure
-        <input type="checkbox" name="genre" value="rpg">rpg
-        <input type="checkbox" name="genre" value="action_rpg">action/rpg
-        <input type="checkbox" name="genre" value="puzzle">puzzle
-    <!-- <input type="checkbox" name="genre" value=""> -->
-    </fieldset>
-    <br />
-
-    <fieldset style='width:500px'>
-    <legend>Beaten?</legend>
-        <input type="radio" name="beaten" value="both" checked>Both
-        <input type="radio" name="beaten" value="yes">Yes
-        <input type="radio" name="beaten" value="no">No
-    </fieldset>
-    <br />
-
-    <input type="submit" value ="Choose a Game">
-    <input type="reset" value = "Reset">
-</form>
-
+        <input type="submit" value ="Choose a Game">
+        <input type="reset" value = "Reset form">
+    </form>
+</td><td>
+    {% if games %}
+        <a href='https://www.google.com/#q=nes+{{ game_url }}' target='_blank'>{{ games.title }}</a><br />
+    {% endif %}
+    <br/><br/>
+    {% if genres %}
+        <h3>Genre{{genres|pluralize}}:</h3>
+        {% for genre in genres %}
+            {{ genre }}<br />
+        {% endfor %}
+    {% endif %}
+</td></tr>
+</table>
 
 
 <!-- <form action="" method="get">
