@@ -34,8 +34,25 @@
         <input type="reset" value = "Reset form">
     </form>
 </td><td>
-    {% if games %}
+    {% if games %}            
         <a href='https://www.google.com/#q=nes+{{ game_url }}' target='_blank'>{{ games.title }}</a><br />
+        
+        {% if user.is_authenticated %}
+            {% if owned %}
+                <!-- <form name="Owned" action="" method="post">
+                    {% csrf_token%}
+                    <input type="submit" value="I don't own this">
+                </form> -->
+                <button>I dont own this</button>
+            {% else %}
+                <button action='/nes/'>I own this</button>
+                <!-- <form name="Owned" action="" method="post">
+                    {% csrf_token%}
+                    <input type="submit" value="I own this">
+                </form> -->
+            {% endif %}      
+        {% endif %}
+        
     {% endif %}
     <br/><br/>
     {% if genres %}

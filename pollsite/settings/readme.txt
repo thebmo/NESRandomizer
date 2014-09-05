@@ -1,0 +1,1 @@
+Settings folder is on Git Ignore list. use the mysite/settings.py to make edits. this is retained for informational purpose only and is not part of any commits
