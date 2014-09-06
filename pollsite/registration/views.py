@@ -7,6 +7,7 @@ from django.db import IntegrityError
 
 
 # Create your views here.
+
 def register(request):
     if request.user.is_authenticated():
         return redirect('index',)

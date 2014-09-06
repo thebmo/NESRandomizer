@@ -13,10 +13,10 @@ class GameAdmin(admin.ModelAdmin):
 
 class OwnedAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('Owner Information', {'fields':['user', 'game']}),
+        ('Owner Information', {'fields':['user', 'game', 'beaten']}),
     ]
-    list_display = ('user', 'game')
-    list_filter = ('user', 'game')
+    list_display = ('user', 'game', 'beaten')
+    list_filter = ('user', 'game', 'beaten')
     
     
 admin.site.register(Game,GameAdmin)

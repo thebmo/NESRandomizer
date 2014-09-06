@@ -9,9 +9,12 @@ from . import forms
 # class IndexView(generic.ListView):
     # template_name= 'nes/index.html'
 
+def index(request):
+    template_name= 'nes/index.html'
+    return render(request, template_name,)
 
 def random_game(request):
-    template = 'nes/random.html'
+    template_name = 'nes/random.html'
     if 'selection' in request.GET:
         s = request.GET['selection']
         if s == 'all':
@@ -27,5 +30,5 @@ def random_game(request):
                 if games.id == game.game_id:
                     owned = True
                 
-            return render(request, template, {'games':games, 'genres':genres, 'game_url':game_url, 'owned':owned})
-    return render(request, template,)
+            return render(request, template_name, {'games':games, 'genres':genres, 'game_url':game_url, 'owned':owned})
+    return render(request, template_name,)
