@@ -17,18 +17,21 @@ def random_game(request):
     template_name = 'nes/random.html'
     if 'selection' in request.GET:
         s = request.GET['selection']
-        if s == 'all':
-            games = random.choice(Game.objects.all())
-            game_url= str(games.title).replace(' ','+')
-            genres = request.GET.getlist('genre')
-            
-            id = request.user.id
-            games_owned = OwnedGame.objects.filter(user_id=id)
-            
-            owned = False
-            for game in games_owned:
-                if games.id == game.game_id:
-                    owned = True
+
+        # if s == 'all':
+        all_games = random.choice(Game.objects.all())
+        genres = request.GET.getlist('genre')
+        game_url= str(all_games.title).replace(' ','+')
+        
+        id = request.user.id
+        games_owned = OwnedGame.objects.filter(user_id=id)
+        
+        owned = False
+        beaten = False
+        for game in games_owned:
+            if all_games.id == game.game_id:
+                owned = True
+                beaten = game.beaten
                 
-            return render(request, template_name, {'games':games, 'genres':genres, 'game_url':game_url, 'owned':owned})
+            return render(request, template_name, {'games':all_games, 'genres':genres, 'game_url':game_url, 'owned':owned, 'beaten':beaten})
     return render(request, template_name,)

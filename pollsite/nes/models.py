@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Game(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=200, unique=True)
     genre = models.CharField(max_length=200)
     rating = models.FloatField(default=0)
     votes = models.IntegerField(default=0)
@@ -19,3 +19,4 @@ class OwnedGame(models.Model):
     
     class Meta:
         ordering = ('game',)
+        unique_together = ['game', 'user']
