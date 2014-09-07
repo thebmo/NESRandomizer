@@ -36,8 +36,23 @@
 </td><td>
     {% if games %}            
         <a href='https://www.google.com/#q=nes+{{ game_url }}' target='_blank'>{{ games.title }}</a><br />       
-        Owned: {{ owned }}</br>
-        Beaten: {{ beaten }}
+        
+        <!-- basic game info -->
+        Owned: {{ owned }}<br/>
+        Beaten: {{ beaten }}<br/>
+        game.id: {{games.id}}<br/>
+        <!-- end basic game info -->
+        
+        <!-- my games test stuff -->
+        {% for my_game in my_games %}
+        <p>
+            own id: {{ my_game.id }}<br/>
+            game id: {{ my_game.game_id }}<br/>
+            owner id: {{ my_game.user_id }}<br/>
+            beaten: {{ my_game.beaten }}
+        </p>
+        {% endfor %}
+        <!-- end game test stuff -->
     
     {% endif %}
     <br/><br/>

@@ -16,15 +16,15 @@ def index(request):
 def random_game(request):
     template_name = 'nes/random.html'
     if 'selection' in request.GET:
-        s = request.GET['selection']
+        selection = request.GET['selection']
 
         # if s == 'all':
         all_games = random.choice(Game.objects.all())
         genres = request.GET.getlist('genre')
         game_url= str(all_games.title).replace(' ','+')
         
-        id = request.user.id
-        games_owned = OwnedGame.objects.filter(user_id=id)
+        # id = request.user.id
+        games_owned = OwnedGame.objects.filter(user_id=request.user.id)
         
         owned = False
         beaten = False
@@ -32,6 +32,6 @@ def random_game(request):
             if all_games.id == game.game_id:
                 owned = True
                 beaten = game.beaten
-                
-            return render(request, template_name, {'games':all_games, 'genres':genres, 'game_url':game_url, 'owned':owned, 'beaten':beaten})
+        # remove my_games, beaten owned genres after testing done        
+        return render(request, template_name, {'games':all_games, 'genres':genres, 'game_url':game_url, 'owned':owned, 'beaten':beaten, 'my_games':games_owned})
     return render(request, template_name,)
