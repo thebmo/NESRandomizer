@@ -16,30 +16,31 @@
         <fieldset style='width:500px'>
         <legend>Beaten?</legend>
             <input type="radio" name="beaten" value="both" checked>Both
-            <input type="radio" name="beaten" value="yes">Yes
-            <input type="radio" name="beaten" value="no">No
+            <input type="radio" name="beaten" value="yes" {% if beaten == 'yes' %}checked{% endif %}>Yes
+            <input type="radio" name="beaten" value="no"{% if beaten == 'no' %}checked{% endif %}>No
         </fieldset>
         <br />
         
         <fieldset style='width:500px'>
         <legend>Genres</legend>
-            <input type="checkbox" name="genre" value="shooter">shooter
-            <input type="checkbox" name="genre" value="platformer">platformer
-            <input type="checkbox" name="genre" value="adventure">adventure
-            <input type="checkbox" name="genre" value="rpg">rpg
-            <input type="checkbox" name="genre" value="action_rpg">action/rpg
-            <input type="checkbox" name="genre" value="puzzle">puzzle
+            <input type="checkbox" name="genre" value="shooter" {% if 'shooter' in genres %}checked{% endif %}>shooter
+            <input type="checkbox" name="genre" value="platformer" {% if 'platformer' in genres %}checked{% endif %}>platformer
+            <input type="checkbox" name="genre" value="adventure" {% if 'adventure' in genres %}checked{% endif %}>adventure
+            <input type="checkbox" name="genre" value="rpg" {% if 'rpg' in genres %}checked{% endif %}>rpg
+            <input type="checkbox" name="genre" value="action_rpg" {% if 'action_rpg' in genres %}checked{% endif %}>action/rpg
+            <input type="checkbox" name="genre" value="puzzle" {% if 'puzzle' in genres %}checked{% endif %}>puzzle
         <!-- <input type="checkbox" name="genre" value=""> -->
         </fieldset>
         <br />
 
         <input type="submit" value ="Choose a Game">
-        <input type="reset" value = "Reset form">
     </form>
+    <a href="{% url 'nes:random' %}" style='diplay:inline'><button>Reset</button></a>
+    
 </td><td>
     {% if games %}            
         <a href='https://www.google.com/#q=nes+{{ game_url }}' target='_blank'>{{ games.title }}</a><br />
-    
+
     <h3>options:</h3>
         selection: {{ selection }}<br/>
         beaten: {{ beaten }}<br/>
