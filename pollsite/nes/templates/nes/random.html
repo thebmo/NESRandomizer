@@ -1,3 +1,6 @@
+<!-- loading stuff up here -->
+{% load nes_extras %}
+
 <h1>Random NES Game Selector</h1>
 <table>
 <tr><td>
@@ -5,8 +8,8 @@
         <fieldset style='width:500px'>
         <legend>Selections</legend>
             <input type="radio" name="selection" value="all" checked>All
-            <input type="radio" name="selection" value="owned">Owned
-            <input type="radio" name="selection" value="pick">Pick Some
+            <input type="radio" name="selection" value="owned" {% if selection == 'owned' %}checked{% endif %}>Owned
+            <input type="radio" name="selection" value="pick"{% if selection == 'pick' %}checked{% endif %}>Pick Some
         </fieldset>
         <br/>
         
@@ -35,35 +38,23 @@
     </form>
 </td><td>
     {% if games %}            
-        <a href='https://www.google.com/#q=nes+{{ game_url }}' target='_blank'>{{ games.title }}</a><br />       
-        
-        <!-- basic game info -->
-        Owned: {{ owned }}<br/>
-        Beaten: {{ beaten }}<br/>
-        game.id: {{games.id}}<br/>
-        <!-- end basic game info -->
-        
-        <!-- my games test stuff -->
-        {% for my_game in my_games %}
-        <p>
-            own id: {{ my_game.id }}<br/>
-            game id: {{ my_game.game_id }}<br/>
-            owner id: {{ my_game.user_id }}<br/>
-            beaten: {{ my_game.beaten }}
-        </p>
-        {% endfor %}
-        <!-- end game test stuff -->
+        <a href='https://www.google.com/#q=nes+{{ game_url }}' target='_blank'>{{ games.title }}</a><br />
     
+    <h3>options:</h3>
+        selection: {{ selection }}<br/>
+        beaten: {{ beaten }}<br/>
+        {% if genres %}
+            <h3>Genre{{genres|pluralize}}:</h3>
+            {% for genre in genres %}
+                {{ genre }}<br />
+            {% endfor %}
+        {% endif %}    
+        
     {% endif %}
     <br/><br/>
     
     
-    {% if genres %}
-        <h3>Genre{{genres|pluralize}}:</h3>
-        {% for genre in genres %}
-            {{ genre }}<br />
-        {% endfor %}
-    {% endif %}
+
 </td></tr>
 </table>
 

@@ -15,23 +15,29 @@ def index(request):
 
 def random_game(request):
     template_name = 'nes/random.html'
-    if 'selection' in request.GET:
+    if 'selection' in request.GET:       
         selection = request.GET['selection']
-
-        # if s == 'all':
-        all_games = random.choice(Game.objects.all())
+        beaten = request.GET['beaten']
         genres = request.GET.getlist('genre')
-        game_url= str(all_games.title).replace(' ','+')
-        
-        # id = request.user.id
+
+        # params = {        
+            # 'selection' : request.GET['selection'],
+            # 'beaten' : request.GET['beaten'],
+            # 'genres' : request.GET.getlist('genre'),
+            # }
+        all_games = Game.objects.all()
         games_owned = OwnedGame.objects.filter(user_id=request.user.id)
+        games = [] # this is the final selection of games
         
-        owned = False
-        beaten = False
-        for game in games_owned:
-            if all_games.id == game.game_id:
-                owned = True
-                beaten = game.beaten
+        if selection == 'owned':
+            for game in all_games:
+                for owned in games_owned:
+                    if game.id == owned.game_id:
+                        games.append(game)
+
+        random_game = (random.choice(games) if games else random.choice(all_games))
+
+        game_url= str(random_game.title).replace(' ','+')
         # remove my_games, beaten owned genres after testing done        
-        return render(request, template_name, {'games':all_games, 'genres':genres, 'game_url':game_url, 'owned':owned, 'beaten':beaten, 'my_games':games_owned})
+        return render(request, template_name, {'games':random_game, 'selection':selection, 'beaten':beaten, 'genres':genres, 'game_url':game_url})
     return render(request, template_name,)
