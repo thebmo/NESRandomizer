@@ -11,7 +11,7 @@ def get_item(dictionary, key):
 # filters all games by passed in filters from #
 # random.html form arguments                  #
 # games: a list of game objects               #
-# params: a dict of parameters                #
+#127.0.0.1:8000/admin/nes/ownedgame/add/ params: a dict of parameters                #
 # games_owned: a list of owned game objects   #
 # returns a filters list of game objects      #
 # ******************************************* #
