@@ -42,34 +42,33 @@
 </td><td>
     {% if game %}            
         <a href='https://www.google.com/#q=nes+{{ game_url }}' target='_blank'>{{ game.title }}</a><br />
-    
-    <h3>game info:</h3>
-        game id: {{ game.id }}<br/>
-        game title: {{ game.title }}<br/>
-        game genre: {{game.genre }}
-        
-    
-    <h3>options:</h3>
-        selection: {{ selection }}<br/>
-        beaten: {{ beaten }}<br/>
-        {% if genres %}
-            <h3>Genre{{genres|pluralize}}:</h3>
-            {% for genre in genres %}
-                {{ genre }}<br />
-            {% endfor %}
+        {% if debug %}
+            <h3>Game Info:</h3>
+                game id: {{ game.id }}<br/>
+                game title: {{ game.title }}<br/>
+                game genre: {{ game.genre }}
+                
+            
+            <h3>options:</h3>
+                Selection: {{ selection }}<br/>
+                Beaten: {{ beaten }}<br/>
+                {% if genres %}
+                    <h3>Selected Genre{{genres|pluralize}}:</h3>
+                    {% for genre in genres %}
+                        {{ genre }}<br />
+                    {% endfor %}
+                {% endif %}    
         {% endif %}    
-        
+    {% endif %}
+    
+    {% if errors %}
+        <font color = 'red'>
+        {%  for error in errors %}
+            {{ error }}<br />
+        {% endfor %}
+        </font>
     {% endif %}
     <br/><br/>
     
-    
-
 </td></tr>
 </table>
-
-
-<!-- <form action="" method="get">
-    <label for="your_name">Your name: </label>
-    <input id="your_name" type="text" name="your_name" value="{{ current_name }}">
-    <input type="submit" value="OK">
-</form> -->
