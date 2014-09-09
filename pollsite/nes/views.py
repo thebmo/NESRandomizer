@@ -3,6 +3,7 @@ from django.views import generic
 from .models import *
 import random
 from . import forms
+from .templatetags import nes_extras as NES
 
 # Create your views here.
 
@@ -15,29 +16,24 @@ def index(request):
 
 def random_game(request):
     template_name = 'nes/random.html'
+    
     if 'selection' in request.GET:       
-        selection = request.GET['selection']
-        beaten = request.GET['beaten']
-        genres = request.GET.getlist('genre')
-
-        # params = {        
-            # 'selection' : request.GET['selection'],
-            # 'beaten' : request.GET['beaten'],
-            # 'genres' : request.GET.getlist('genre'),
-            # }
+        params = {        
+            'selection' : request.GET['selection'],
+            'beaten' : request.GET['beaten'],
+            'genres' : request.GET.getlist('genre'),
+            }
         all_games = Game.objects.all()
-        games_owned = OwnedGame.objects.filter(user_id=request.user.id)
-        games = [] # this is the final selection of games
         
-        if selection == 'owned':
-            for game in all_games:
-                for owned in games_owned:
-                    if game.id == owned.game_id:
-                        games.append(game)
-
-        random_game = (random.choice(games) if games else random.choice(all_games))
+        
+        # sets the games owned argument for NES.filter_games()
+        games_owned = {}
+        if params['selection'] == 'owned':
+            games_owned = OwnedGame.objects.filter(user_id=request.user.id)
+            
+        random_game = random.choice(NES.filter_games(all_games, params, games_owned))
 
         game_url= str(random_game.title).replace(' ','+')
-        # remove my_games, beaten owned genres after testing done        
-        return render(request, template_name, {'games':random_game, 'selection':selection, 'beaten':beaten, 'genres':genres, 'game_url':game_url})
+      
+        return render(request, template_name, {'game':random_game, 'selection':params['selection'], 'beaten':params['beaten'], 'genres':params['genres'], 'game_url':game_url})
     return render(request, template_name,)

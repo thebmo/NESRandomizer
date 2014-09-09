@@ -8,9 +8,11 @@
         <fieldset style='width:500px'>
         <legend>Selections</legend>
             <input type="radio" name="selection" value="all" checked>All
-            <input type="radio" name="selection" value="owned" {% if selection == 'owned' %}checked{% endif %}>Owned
-            <input type="radio" name="selection" value="pick"{% if selection == 'pick' %}checked{% endif %}>Pick Some
-        </fieldset>
+            {% if user.is_authenticated %}
+                <input type="radio" name="selection" value="owned" {% if selection == 'owned' %}checked{% endif %}>Owned
+                <input type="radio" name="selection" value="pick"{% if selection == 'pick' %}checked{% endif %}>Pick Some
+            {% endif %}
+       </fieldset>
         <br/>
         
         <fieldset style='width:500px'>
@@ -38,9 +40,15 @@
     <a href="{% url 'nes:random' %}" style='diplay:inline'><button>Reset</button></a>
     
 </td><td>
-    {% if games %}            
-        <a href='https://www.google.com/#q=nes+{{ game_url }}' target='_blank'>{{ games.title }}</a><br />
-
+    {% if game %}            
+        <a href='https://www.google.com/#q=nes+{{ game_url }}' target='_blank'>{{ game.title }}</a><br />
+    
+    <h3>game info:</h3>
+        game id: {{ game.id }}<br/>
+        game title: {{ game.title }}<br/>
+        game genre: {{game.genre }}
+        
+    
     <h3>options:</h3>
         selection: {{ selection }}<br/>
         beaten: {{ beaten }}<br/>
