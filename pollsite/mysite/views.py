@@ -20,6 +20,9 @@ def index(request):
     return render(request, 'mysite/index.html',)
 
 def login_view(request):
+    
+    if request.user.is_authenticated():
+        return redirect('index',)
     error=''
     username=''
     password=''
@@ -30,7 +33,8 @@ def login_view(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            return render(request, 'mysite/index.html',)
+            # return render(request, 'mysite/index.html',)
+            return redirect('index',)
         error = 'Login Failed'    
     return render(request, 'mysite/login.html', {'error':error, 'username':username, 'password':password, })
 

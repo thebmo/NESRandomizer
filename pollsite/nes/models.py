@@ -12,20 +12,20 @@ class Game(models.Model):
     class Meta:
         ordering = ('title',)
     
-# class BeatenGame(models.Model):
-    # game=models.ForeignKey(Game)
-    # user=models.ForeignKey(User)
-    # beaten=models.BooleanField(default=False)
+class BeatenGame(models.Model):
+    game=models.ForeignKey(Game)
+    user=models.ForeignKey(User)
+    beaten=models.BooleanField(default=False)
     
-    # class Meta:
-        # ordering = ('game',)
-        # unique_together = ['game', 'user']
+    class Meta:
+        ordering = ('game',)
+        unique_together = ['game', 'user']
 
 class OwnedGame(models.Model):
     game=models.ForeignKey(Game)
     user=models.ForeignKey(User)
-    # beaten=models.ForeignKey(BeatenGame)
-    beaten=models.BooleanField(default=False)
+    beaten=models.ForeignKey(BeatenGame)
+    # beaten=models.BooleanField(default=False)
     
     class Meta:
         ordering = ('game',)
