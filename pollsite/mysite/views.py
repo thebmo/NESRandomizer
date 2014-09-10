@@ -21,24 +21,24 @@ def index(request):
 
 def login_view(request):
     
+    # if user is logged in, redirects to index
     if request.user.is_authenticated():
         return redirect('index',)
     error=''
     username=''
     password=''
     
+    # if user is logging in
     if 'username' in request.GET:
         username=request.GET['username']
         password=request.GET['password']
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            # return render(request, 'mysite/index.html',)
             return redirect('index',)
         error = 'Login Failed'    
     return render(request, 'mysite/login.html', {'error':error, 'username':username, 'password':password, })
 
 def logout_view(request):
     logout(request)
-    # return redirect('mysite/index.html',)
-    return render(request, 'mysite/index.html',)
+    return redirect('index',)

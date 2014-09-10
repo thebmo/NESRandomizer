@@ -28,15 +28,19 @@ def random_game(request):
             }
         all_games = Game.objects.all()
         games_owned = {}
+        beaten_games = {}
         game_url=''
         
         
         # sets the games owned argument for NES.filter_games()
         if params['selection'] == 'owned':
             games_owned = OwnedGame.objects.filter(user_id=request.user.id)
+        
+        if params['beaten'] != 'both':
+            beaten_games = BeatenGame.objects.filter(user_id=request.user.id)
             
         
-        random_game = NES.filter_games(all_games, params, games_owned)
+        random_game = NES.filter_games(all_games, params, games_owned, beaten_games)
         if random_game:
             random_game = random.choice(random_game)
             game_url= str(random_game.title).replace(' ','+')

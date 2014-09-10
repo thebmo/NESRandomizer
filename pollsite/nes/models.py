@@ -15,7 +15,7 @@ class Game(models.Model):
 class BeatenGame(models.Model):
     game=models.ForeignKey(Game)
     user=models.ForeignKey(User)
-    beaten=models.BooleanField(default=False)
+
     
     class Meta:
         ordering = ('game',)
@@ -24,8 +24,6 @@ class BeatenGame(models.Model):
 class OwnedGame(models.Model):
     game=models.ForeignKey(Game)
     user=models.ForeignKey(User)
-    beaten=models.ForeignKey(BeatenGame)
-    # beaten=models.BooleanField(default=False)
     
     class Meta:
         ordering = ('game',)

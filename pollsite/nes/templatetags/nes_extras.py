@@ -11,11 +11,11 @@ def get_item(dictionary, key):
 # filters all games by passed in filters from #
 # random.html form arguments                  #
 # games: a list of game objects               #
-#127.0.0.1:8000/admin/nes/ownedgame/add/ params: a dict of parameters                #
+# params: a dict of parameters                #
 # games_owned: a list of owned game objects   #
 # returns a filters list of game objects      #
 # ******************************************* #
-def filter_games(all_games, params, games_owned):
+def filter_games(all_games, params, games_owned, beaten_games):
     
     games = list(all_games)
 
@@ -49,14 +49,26 @@ def filter_games(all_games, params, games_owned):
     
     # # checks if user set the beaten filter
     if params['beaten'] != 'both':
-        beaten = (False if params['beaten']  == 'yes' else True)
+        beaten = (True if params['beaten']  == 'yes' else False)
         # if params['beaten'] == 'yes':
         for game in all_games:
-            for owned in games_owned:
-                if game in games and game.id == owned.game_id and owned.beaten == beaten:
+            
+            # beaten filter = true, remove games that are not on list
+            if beaten:
+                beat = False
+                for beaten_game in beaten_games:
+                    if game.id == beaten_game.game_id:
+                        beat = True
+                if game in games and not beat:
                     games.remove(game)
+                    
+            # beaten filter = false, remove games taht are on list
+            if not beaten:
+                beat = False
+                for beaten_game in beaten_games:
+                    if game in games and game.id == beaten_game.game_id:
+                        games.remove(game)
+                
     
     
-    
-    # return (games if games else None)
     return games
