@@ -1,0 +1,22 @@
+<h1>Edit your profile information!</h1>
+
+<form name="Profile Details" action="" method="post">
+    {% csrf_token %}
+    <fieldset style='width:500px'>
+    <legend><h3>Profile Details</h3></legend>
+        <table>
+        <tr><td>Email</td><td><input type="text" name="email" value='' required></td></tr>
+        <tr><td>Old Password</td><td><input type="password" name="old_pass" value='' required></td></tr>
+        <tr><td>New Password</td><td><input type="password" name="new_pass" value='' required></td></tr>
+        <tr><td>Confirm Password</td><td><input type="password" name="conf_pass" value='' required></td></tr>
+        <tr><td><input type="submit" value="Update Profile"> <input type="reset" value="Reset"></td></tr>
+        </table>
+    </fieldset>
+</form>
+
+{% if errors %}
+    <font color='red'>
+    {% for error in errors %}
+        {{ error }}
+    {% endfor %}
+{% endif %}

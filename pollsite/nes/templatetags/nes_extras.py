@@ -13,6 +13,7 @@ def get_item(dictionary, key):
 # games: a list of game objects               #
 # params: a dict of parameters                #
 # games_owned: a list of owned game objects   #
+# beaten_games: a list of beaten game objects #
 # returns a filters list of game objects      #
 # ******************************************* #
 def filter_games(all_games, params, games_owned, beaten_games):

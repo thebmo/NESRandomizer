@@ -13,5 +13,6 @@ urlpatterns = patterns('',
     url(r'^nes/', include('nes.urls', namespace='nes')),
     url(r'^polls/', include('polls.urls', namespace='polls')),
     url(r'^register/', include('registration.urls', namespace='reg')),
+    url(r'^profiles/', include('profiles.urls', namespace='prof')),
     url(r'^admin/', include(admin.site.urls)),
 )
