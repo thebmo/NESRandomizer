@@ -1,10 +1,24 @@
 from django import template
+from nes.models import *
 
 register = template.Library()
 
 @register.filter
 def get_item(dictionary, key):
     return dictionary.get(key)
+
+# fetches all games in the DB
+def fetch_games(request):
+    return Game.objects.all()
+
+# fetches owned games for the user
+def fetch_owned(request):
+    return OwnedGame.objects.filter(user_id=request.user.id)
+
+# fetches beaten games for the user
+def fetch_beaten(request):
+    return BeatenGame.objects.filter(user_id=request.user.id)
+
     
 # ******************************************* #
 # filter_games()                              #
@@ -73,3 +87,4 @@ def filter_games(all_games, params, games_owned, beaten_games):
     
     
     return games
+# end filter_games() #

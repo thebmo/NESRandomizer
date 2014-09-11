@@ -1,0 +1,18 @@
+<h1>{{ user.username }}'s profile information!</h1>
+Username: {{ user.username }}<br />
+Email: {{ user.email }}<br />
+
+{% if owned %}
+Games Owned (update): <br/>
+{% for own in owned %}
+    {% for game in games %}
+        {% if game.id == own.game_id %}
+            {{ game.title }}<br>
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+{% endif %}
+
+
+
+Games Beaten (update): <br>
