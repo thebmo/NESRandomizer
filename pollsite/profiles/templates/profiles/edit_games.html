@@ -1,0 +1,28 @@
+<h1>{{ title.0 }}</h1>
+<a href='{% url 'prof:view_profile' %}'>< Back to Profile</a>
+
+<form name="not selected">
+<table>
+<tr><td>
+<fieldset>
+<legend>{{ title.1 }}</legend>
+    <select name="{{ title.1 }}" size=10 multiple>
+        {% for game in games %}
+           <option value='{{ game.title }}'>{{ game.title }}</option>
+        {% endfor %}
+    </select>
+</fieldset>
+</td><td>
+<input type='submit' name='update' value='<<-->>'><br>
+</td><td>
+<fieldset>
+<legend>{{ title.2 }}</legend>
+    <select name="{{ title.2 }}" size=10 multiple>
+        {% for owned in owned_games %}
+            <option value='{{ owned.title }}'>{{ owned.title }}</option>
+        {% endfor %}
+    </select>
+</td></tr>
+</fieldset>
+</table>
+</form>

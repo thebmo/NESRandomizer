@@ -3,7 +3,7 @@ Username: {{ user.username }}<br />
 Email: {{ user.email }}<br />
 
 {% if owned %}
-Games Owned (update): <br/>
+Games Owned (<a href='{% url 'prof:owned' %}'>update</a>): <br/>
 {% for own in owned %}
     {% for game in games %}
         {% if game.id == own.game_id %}
@@ -15,4 +15,4 @@ Games Owned (update): <br/>
 
 
 
-Games Beaten (update): <br>
+Games Beaten (<a href='{% url 'prof:beaten' %}'>update</a>): <br/>

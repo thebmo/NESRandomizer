@@ -25,3 +25,36 @@ def view_profile(request):
     
 def update_email(request):
     return redirect('view_profile')
+
+def edit_owned_games(request):
+    if not request.user.is_authenticated():
+        return redirect('index',)
+    template = 'profiles/edit_games.html'
+    title = ['Edit Your Owned Games', 'Unowned', 'Owned']
+    
+    all_games = NES.fetch_games(request)
+    
+    # creates a list of just owned game ids
+    owned_ids = []
+    for game in NES.fetch_owned(request):
+        owned_ids.append(game.game_id)
+    
+    games = []
+    owned_games = []
+    
+    # poplulates the two lists
+    for game in all_games:
+        if game.id in owned_ids:
+            owned_games.append(game)
+        else:
+            games.append(game)
+    
+    return render(request, template,{'title':title, 'games':games, 'owned_games':owned_games})
+    
+def edit_beaten_games(request):
+    if not request.user.is_authenticated():
+        return redirect('index',)
+    template = 'profiles/edit_games.html'
+    title = 'Edit Your Beaten Games'
+    return render(request, template,{'title':title})
+    
