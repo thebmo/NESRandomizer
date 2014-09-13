@@ -26,35 +26,62 @@ def view_profile(request):
 def update_email(request):
     return redirect('view_profile')
 
-def edit_owned_games(request):
+# handles the editing of beaten or owned games in the profile
+def edit_games(request):
+    # redirects if not logged in
     if not request.user.is_authenticated():
         return redirect('index',)
+        
     template = 'profiles/edit_games.html'
-    title = ['Edit Your Owned Games', 'Unowned', 'Owned']
     
-    all_games = NES.fetch_games(request)
+    
+    print "path: %s" % request.path
+    if 'owned_games' in request.path:
+        mode = 'owned'
+        title = ['Edit Your Owned Games', 'Unowned', 'Owned']
+    else:
+        mode = 'beaten'
+        title = ['Edit Your Beaten Games', 'Not Beaten', 'Beaten']
+    
+    # This block handles the updates
+    if 'Owned' in request.POST or 'Unowned' in request.POST:
+        if 'Unowned' in request.POST:
+            game_ids = request.POST.getlist('Unowned')
+            for game_id in game_ids:
+                g = OwnedGame(game_id=game_id, user_id=request.user.id)
+                g.save()
+        
+        if 'Owned' in request.POST:
+            game_ids = request.POST.getlist('Owned')
+            for game_id in game_ids:
+                OwnedGame.objects.filter(game_id=game_id, user_id=request.user.id).delete()
+                
+        
+        
+        return redirect('prof:owned',)
+    # end of update block
+    
     
     # creates a list of just owned game ids
-    owned_ids = []
-    for game in NES.fetch_owned(request):
-        owned_ids.append(game.game_id)
+    mode_ids = []
+    if mode == 'owned':
+        for game in NES.fetch_owned(request):
+            mode_ids.append(game.game_id)
+    else:   
+        for game in NES.fetch_beaten(request):
+            mode_ids.append(game.game_id)
     
+    all_games = NES.fetch_games(request)
     games = []
-    owned_games = []
+    mode_games = []
     
     # poplulates the two lists
     for game in all_games:
-        if game.id in owned_ids:
-            owned_games.append(game)
+        if game.id in mode_ids:
+            mode_games.append(game)
         else:
             games.append(game)
+
+    return render(request, template,{'title':title, 'games':games, 'mode_games':mode_games})
     
-    return render(request, template,{'title':title, 'games':games, 'owned_games':owned_games})
-    
-def edit_beaten_games(request):
-    if not request.user.is_authenticated():
-        return redirect('index',)
-    template = 'profiles/edit_games.html'
-    title = 'Edit Your Beaten Games'
-    return render(request, template,{'title':title})
     

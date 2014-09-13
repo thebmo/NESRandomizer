@@ -1,18 +1,35 @@
 <h1>{{ user.username }}'s profile information!</h1>
 Username: {{ user.username }}<br />
-Email: {{ user.email }}<br />
+Email: {{ user.email }} (update)<br />
+(Change Password) <br /><br />
 
+<table>
+<tr><td style="padding-right:100px"><strong>Games Owned</strong> (<a href='{% url 'prof:owned' %}'>update</a>): <!-- ' -->
+</td><td><strong>Games Beaten</strong> (<a href='{% url 'prof:beaten' %}'>update</a>):</td></tr> <!-- ' -->
+
+<tr><td>
 {% if owned %}
-Games Owned (<a href='{% url 'prof:owned' %}'>update</a>): <br/>
-{% for own in owned %}
-    {% for game in games %}
-        {% if game.id == own.game_id %}
-            {{ game.title }}<br>
-        {% endif %}
+    {% for own in owned %}
+        {% for game in games %}
+            {% if game.id == own.game_id %}
+                {{ game.title }}<br>
+            {% endif %}
+        {% endfor %}
     {% endfor %}
-{% endfor %}
 {% endif %}
 
+</td><td>
+{% if owned %}
+    {% for own in owned %}
+        {% for game in games %}
+            {% if game.id == own.game_id %}
+                {{ game.title }}<br>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+{% endif %}
+</td></tr>
+</table>
 
 
-Games Beaten (<a href='{% url 'prof:beaten' %}'>update</a>): <br/>
+

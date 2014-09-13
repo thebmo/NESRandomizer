@@ -1,25 +1,27 @@
 <h1>{{ title.0 }}</h1>
-<a href='{% url 'prof:view_profile' %}'>< Back to Profile</a>
+<a href='{% url 'prof:view_profile' %}'> < Back to Profile</a> <!-- ' -->
 
-<form name="not selected">
+<form name="game update" action="" method="post">
+<!-- <form name="game update"> -->
+{% csrf_token%}
 <table>
 <tr><td>
 <fieldset>
 <legend>{{ title.1 }}</legend>
-    <select name="{{ title.1 }}" size=10 multiple>
+    <select name="{{ title.1 }}" size=10 multiple style="width:250px">
         {% for game in games %}
-           <option value='{{ game.title }}'>{{ game.title }}</option>
+           <option value='{{ game.id }}'>{{ game.title }}</option>
         {% endfor %}
     </select>
 </fieldset>
 </td><td>
-<input type='submit' name='update' value='<<-->>'><br>
+<input type='submit' value='<<-->>'><br>
 </td><td>
 <fieldset>
 <legend>{{ title.2 }}</legend>
-    <select name="{{ title.2 }}" size=10 multiple>
-        {% for owned in owned_games %}
-            <option value='{{ owned.title }}'>{{ owned.title }}</option>
+    <select name="{{ title.2 }}" size=10 multiple style="width:250px">
+        {% for mode in mode_games %}
+            <option value='{{ mode.id }}'>{{ mode.title }}</option>
         {% endfor %}
     </select>
 </td></tr>
