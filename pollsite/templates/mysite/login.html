@@ -1,3 +1,8 @@
+{% extends "mysite/base.html" %}
+<!-- {% block title %}My amazing blog{% endblock %} -->
+{% block content %}
+
+
 <form name="login" action="" method="get">
     <fieldset style='width:300px'>
     <legend>Login</legend>
@@ -12,3 +17,5 @@
 <font color='red'>{{ error }}</font>
 {% endif %}
 <br/>
+
+{% endblock %}

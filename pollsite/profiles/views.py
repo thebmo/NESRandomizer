@@ -44,21 +44,29 @@ def edit_games(request):
         title = ['Edit Your Beaten Games', 'Not Beaten', 'Beaten']
     
     # This block handles the updates
-    if 'Owned' in request.POST or 'Unowned' in request.POST:
-        if 'Unowned' in request.POST:
-            game_ids = request.POST.getlist('Unowned')
+    # if 'Owned' in request.POST or 'Unowned' in request.POST:
+    if title[1] in request.POST or title[2] in request.POST:
+        if title[1] in request.POST:
+            game_ids = request.POST.getlist(title[1])
             for game_id in game_ids:
-                g = OwnedGame(game_id=game_id, user_id=request.user.id)
+                if mode == 'owned':
+                    g = OwnedGame(game_id=game_id, user_id=request.user.id)
+                else:
+                    g = BeatenGame(game_id=game_id, user_id=request.user.id)
+                    
                 g.save()
         
-        if 'Owned' in request.POST:
-            game_ids = request.POST.getlist('Owned')
+        if title[2] in request.POST:
+            game_ids = request.POST.getlist(title[2])
             for game_id in game_ids:
-                OwnedGame.objects.filter(game_id=game_id, user_id=request.user.id).delete()
-                
+                if mode == 'owned':
+                    OwnedGame.objects.filter(game_id=game_id, user_id=request.user.id).delete()
+                else:
+                    BeatenGame.objects.filter(game_id=game_id, user_id=request.user.id).delete()
         
         
-        return redirect('prof:owned',)
+        redirect_url = ':'.join(('prof', mode))
+        return redirect(redirect_url,)
     # end of update block
     
     

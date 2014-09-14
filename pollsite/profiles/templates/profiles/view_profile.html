@@ -1,3 +1,7 @@
+{% extends "mysite/base.html" %}
+<!-- {% block title %}My amazing blog{% endblock %} -->
+{% block content %}
+
 <h1>{{ user.username }}'s profile information!</h1>
 Username: {{ user.username }}<br />
 Email: {{ user.email }} (update)<br />
@@ -19,10 +23,10 @@ Email: {{ user.email }} (update)<br />
 {% endif %}
 
 </td><td>
-{% if owned %}
-    {% for own in owned %}
+{% if beaten %}
+    {% for beat in beaten %}
         {% for game in games %}
-            {% if game.id == own.game_id %}
+            {% if game.id == beat.game_id %}
                 {{ game.title }}<br>
             {% endif %}
         {% endfor %}
@@ -31,5 +35,4 @@ Email: {{ user.email }} (update)<br />
 </td></tr>
 </table>
 
-
-
+{% endblock %}
