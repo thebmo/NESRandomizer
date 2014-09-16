@@ -29,9 +29,9 @@ def login_view(request):
     password=''
     
     # if user is logging in
-    if 'username' in request.GET:
-        username=request.GET['username']
-        password=request.GET['password']
+    if 'username' in request.POST:
+        username=request.POST['username']
+        password=request.POST['password']
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)

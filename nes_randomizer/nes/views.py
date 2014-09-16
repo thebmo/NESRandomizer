@@ -20,11 +20,11 @@ def random_game(request):
     debug = True
     # debug = False
     
-    if 'selection' in request.GET:       
+    if 'selection' in request.POST:       
         params = {        
-            'selection' : request.GET['selection'],
-            'beaten' : request.GET['beaten'],
-            'genres' : request.GET.getlist('genre'),
+            'selection' : request.POST['selection'],
+            'beaten' : request.POST['beaten'],
+            'genres' : request.POST.getlist('genre'),
             }
         all_games = Game.objects.all()
         games_owned = {}

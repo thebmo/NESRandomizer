@@ -3,7 +3,8 @@
 {% block content %}
 
 
-<form name="login" action="" method="get">
+<form name="login" action="" method="post">
+    {% csrf_token %}
     <fieldset style='width:300px'>
     <legend>Login</legend>
         <table>

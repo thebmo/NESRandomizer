@@ -8,13 +8,16 @@
 <h1>Random NES Game Selector</h1>
 <table>
 <tr><td>
-    <form name="Random NES" action="" method="get">
+    <form name="Random NES" action="" method="post">
+        {% csrf_token %}
         <fieldset style='width:500px'>
         <legend>Selections</legend>
             <input type="radio" name="selection" value="all" checked>All
             {% if user.is_authenticated %}
                 <input type="radio" name="selection" value="owned" {% if selection == 'owned' %}checked{% endif %}>Owned
                 <input type="radio" name="selection" value="pick"{% if selection == 'pick' %}checked{% endif %}>Pick Some
+            {% else %}
+                &emsp;&emsp;&emsp;&emsp;&emsp;(More options here for registered users)
             {% endif %}
        </fieldset>
         <br/>
@@ -22,8 +25,12 @@
         <fieldset style='width:500px'>
         <legend>Beaten?</legend>
             <input type="radio" name="beaten" value="both" checked>Both
-            <input type="radio" name="beaten" value="yes" {% if beaten == 'yes' %}checked{% endif %}>Yes
-            <input type="radio" name="beaten" value="no"{% if beaten == 'no' %}checked{% endif %}>No
+            {% if user.is_authenticated %}
+                <input type="radio" name="beaten" value="yes" {% if beaten == 'yes' %}checked{% endif %}>Yes
+                <input type="radio" name="beaten" value="no"{% if beaten == 'no' %}checked{% endif %}>No
+            {% else %}
+                &nbsp;&nbsp;&emsp;&emsp;&emsp;&emsp;(More options here for registered users)
+            {% endif %}
         </fieldset>
         <br />
         
