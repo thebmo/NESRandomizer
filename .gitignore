@@ -1,3 +1,4 @@
 azure_files/
 azure_files/*
 settings/
+*.pyc
