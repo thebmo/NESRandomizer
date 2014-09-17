@@ -1,5 +1,4 @@
 {% extends "mysite/base.html" %}
-<!-- {% block title %}My amazing blog{% endblock %} -->
 {% block content %}
 
 <h1>Hey, {{ user.username }} this is the menu:</h1>
@@ -20,7 +19,9 @@
     <li><a href="/admin/" target = "_blank">admin</a></li>
     {% endif %}
     <li><a href="{% url 'nes:index' %}">NES</a></li>
-    <li><a href="{% url 'polls:index' %}">POLLS</a></li>
+    {% if user.is_staff %}
+        <li><a href="{% url 'polls:index' %}">POLLS</a></li>
+    {% endif %}
 </ul>
 
 {% endblock %}

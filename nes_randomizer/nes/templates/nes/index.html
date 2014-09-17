@@ -1,10 +1,11 @@
 {% extends "mysite/base.html" %}
-<!-- {% block title %}My amazing blog{% endblock %} -->
 {% block content %}
 <h1>NES Stuff!</h1>
 <ul>
     <li><a href="{% url 'nes:random' %}">Random Game Selector</a></li>
-    <li>Update owned games</li>
+    {% if user.is_authenticated %}
+        <li>Update owned games</li>
+    {% endif %}
 </ul>
 
 
