@@ -17,6 +17,7 @@
 <ul>
     {% if user.is_staff %}
     <li><a href="/admin/" target = "_blank">admin</a></li>
+    <li><a href="{% url 'import'%}">Import Games</a></li>
     {% endif %}
     <li><a href="{% url 'nes:index' %}">NES</a></li>
     {% if user.is_staff %}

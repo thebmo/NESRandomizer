@@ -9,6 +9,7 @@ urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
     # url(r'^blog/', include('blog.urls')),
     url(r'^login/', views.login_view, name='login'),
+    url(r'^import/', views.import_games, name='import'), #remove this after
     url(r'^logout/', views.logout_view, name='logout'),
     url(r'^nes/', include('nes.urls', namespace='nes')),
     url(r'^polls/', include('polls.urls', namespace='polls')),

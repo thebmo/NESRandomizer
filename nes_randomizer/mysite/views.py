@@ -5,11 +5,24 @@ from django.views import generic
 
 from django.contrib.auth import authenticate, logout, login
 
+from nes.models import Game
 
 
 # class IndexView(generic.ListView):
     # template_name = 'mysite/index.html'
 
+# clear this view after
+def import_games(request):
+    file = 'C:\\Users\\bmo\\Desktop\\nes_parsed.txt'
+    with open(file, 'r') as f:
+        for line in f.readlines():
+            game = line.replace('\n', '').split('|')
+        
+            g = Game(title=game[0], year=game[1],publisher=game[2],
+                region=game[3], format=game[4], license=game[5], genre=game[6])
+            g.save()
+    return redirect('profiles/view_profile.html')
+    
 def index(request):
     user = authenticate(username='', password='')
     if user is not None:

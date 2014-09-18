@@ -2,3 +2,9 @@ azure_files/
 azure_files/*
 settings/
 *.pyc
+nes_randomizer/mysite/urls.pyc
+nes_randomizer/mysite/views.pyc
+nes_randomizer/profiles/views.pyc
+nes_randomizer/mysite/urls.pyc
+nes_randomizer/mysite/views.pyc
+nes_randomizer/profiles/views.pyc
