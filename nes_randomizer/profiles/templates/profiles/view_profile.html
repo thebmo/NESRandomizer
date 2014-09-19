@@ -12,24 +12,20 @@ Email: {{ user.email }} (update)<br />
 
 <tr><td>
 {% if owned %}
+    <select size=10 multiple style="width:250px">
     {% for own in owned %}
-        {% for game in games %}
-            {% if game.id == own.game_id %}
-                {{ game.title }}<br>
-            {% endif %}
-        {% endfor %}
+       <option value='{{ own.id }}'>{{ own.title }}</option>
     {% endfor %}
+    </select>
 {% endif %}
 
 </td><td>
 {% if beaten %}
+    <select size=10 multiple style="width:250px">
     {% for beat in beaten %}
-        {% for game in games %}
-            {% if game.id == beat.game_id %}
-                {{ game.title }}<br>
-            {% endif %}
-        {% endfor %}
+       <option value='{{ beat.id }}'>{{ beat.title }}</option>
     {% endfor %}
+    </select>
 {% endif %}
 </td></tr>
 </table>

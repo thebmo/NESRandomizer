@@ -17,11 +17,28 @@ def view_profile(request):
         # update_email = True
     
     # game info
-    owned = NES.fetch_owned(request)
-    beaten = NES.fetch_beaten(request)
+    owned_ids=[]
+    owned=[]
+    for own in NES.fetch_owned(request):
+        owned_ids.append(own.game_id)
+        
+    beaten_ids=[]
+    beaten=[]
+    for beat in NES.fetch_beaten(request):
+        beaten_ids.append(beat.game_id)
+    
     games = NES.fetch_games(request)
     
-    return render(request, template, {'email':email, 'owned':owned, 'beaten':beaten, 'games':games })
+    # populates both lists
+    for game in games:
+        if game.id in owned_ids:
+            owned.append(game)
+            
+    for game in games:
+        if game.id in beaten_ids:
+            beaten.append(game)
+    
+    return render(request, template, {'email':email, 'owned':owned, 'beaten':beaten })
     
 def update_email(request):
     return redirect('view_profile')
@@ -65,7 +82,7 @@ def edit_games(request):
                     BeatenGame.objects.filter(game_id=game_id, user_id=request.user.id).delete()
         
         
-        redirect_url = ':'.join(('prof', mode))
+        redirect_url = 'prof:view_profile'
         return redirect(redirect_url,)
     # end of update block
     
