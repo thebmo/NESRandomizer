@@ -5,6 +5,26 @@ from nes.templatetags import nes_extras as NES
 
 # views below
 
+# updates either email or password using the PATH
+def edit_field(request):
+    field = ''
+    template = 'profiles/edit_field.html'
+    errors = []
+    
+    # # if you are updating, run below instead!
+    # if 'email' in request.POST or 'password' in request.POST:
+        # if 'email' in request.POST:
+        
+        # elif 'password' in request.POST:
+    
+    
+    if 'password' in request.path:
+        field = 'password'
+    elif 'email' in request.path:
+        field = 'email'
+    return render(request, template, {'field':field} )
+
+# the profile view
 def view_profile(request):
     if not request.user.is_authenticated():
         return redirect('index',)
@@ -39,9 +59,6 @@ def view_profile(request):
             beaten.append(game)
     
     return render(request, template, {'email':email, 'owned':owned, 'beaten':beaten })
-    
-def update_email(request):
-    return redirect('view_profile')
 
 # handles the editing of beaten or owned games in the profile
 def edit_games(request):

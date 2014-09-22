@@ -1,0 +1,29 @@
+{% extends "mysite/base.html" %}
+
+{% block content %}
+
+<form name="Update Profile" action="" method="post">
+    {% csrf_token %}
+    <fieldset style='width:500px'>
+    <legend><h3>Profile Details</h3></legend>
+        <table>
+        {% if field == 'email' %}
+            <tr><td>Email: <input type="text" name="email" value='{{ email }}' required></td></tr>
+        {% elif field == 'password' %}
+            <tr><td>Old Password</td><td><input type="password" name="old_pass" value='' required></td></tr>
+            <tr><td>New Password</td><td><input type="password" name="new_pass" value='' required></td></tr>
+            <tr><td>Confirm Password</td><td><input type="password" name="conf_pass" value='' required></td></tr>
+        {% endif %}
+        <tr><td><input type="submit" value="Update Profile"> <input type="reset" value="Reset"></td></tr>
+        </table>
+    </fieldset>
+</form>
+
+{% if errors %}
+    <font color='red'>
+    {% for error in errors %}
+        {{ error }}
+    {% endfor %}
+{% endif %}
+
+{% endblock %}
