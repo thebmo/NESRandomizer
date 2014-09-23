@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
 from nes.models import *
 from nes.templatetags import nes_extras as NES
+from django.views import generic
+from django.contrib.auth.models import User
 
 # views below
 
@@ -11,12 +13,22 @@ def edit_field(request):
     template = 'profiles/edit_field.html'
     errors = []
     
-    # # if you are updating, run below instead!
-    # if 'email' in request.POST or 'password' in request.POST:
-        # if 'email' in request.POST:
-        
-        # elif 'password' in request.POST:
+    # if you are updating, run below instead!
+    user = User.objects.get(id=request.user.id)
     
+    print user.password
+    print request.POST['old_pass']
+    
+    if 'email' in request.POST or 'password' in request.POST:
+        if 'email' in request.POST:
+            user.email = request.POST['email']
+            user.save()
+            
+        elif 'old_pass' in request.POST:
+            if clean(User.password) == request.POST['old_pass']: #this doesnt work. figure out how to validate correctly
+                print 'PASSWORDS MATCH!\n'
+        
+        return redirect('/profiles/')
     
     if 'password' in request.path:
         field = 'password'
