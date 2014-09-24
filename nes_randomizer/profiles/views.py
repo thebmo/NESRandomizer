@@ -25,7 +25,7 @@ def edit_field(request):
             user.save()
             
         elif 'old_pass' in request.POST:
-            if clean(User.password) == request.POST['old_pass']: #this doesnt work. figure out how to validate correctly
+            if clean(User.password) == request.POST['old_pass']: #this doesnt work. figure out how to validate correctly 
                 print 'PASSWORDS MATCH!\n'
         
         return redirect('/profiles/')
