@@ -1,9 +1,10 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, HttpResponseRedirect
 from django.views import generic
 from nes.models import *
 from nes.templatetags import nes_extras as NES
 from django.views import generic
 from django.contrib.auth.models import User
+from django.contrib.auth.hashers import check_password, make_password
 
 # views below
 
@@ -12,7 +13,7 @@ def edit_field(request):
     field = ''
     template = 'profiles/edit_field.html'
     errors = []
-    notes = []
+    notes = ''
 
     if 'password' in request.path:
         field = 'password'
@@ -26,17 +27,21 @@ def edit_field(request):
         if 'email' in request.POST:
             user.email = request.POST['email']
             user.save()
-            notes.append('Email updated successfully')
+            notes='Email updated successfully to: %s' % user.email
             
         elif 'new_pass' in request.POST:
-            if request.POST['new_pass'] == request.POST['conf_pass']:
-                notes.append('Password updated successfully')
+            if check_password(request.POST['password'], user.password):
+                print 'password is good!'
+                
+                if request.POST['new_pass'] == request.POST['conf_pass']:
+                    user.password= make_password(request.POST['new_pass'])
+                    user.save()
+                    notes='Password updated successfully'
+                else:
+                    errors.append('Passwords do not match.')
             else:
-                errors.append('Passwords do not match.')
-                return render(request, template, {'field':field, 'errors':errors, 'notes':notes} )
-        return redirect('/profiles/', {'notes':notes})
-    
-    return render(request, template, {'field':field, 'errors':errors} )
+                errors.append('Current password invalid')
+    return render(request, template, {'field':field, 'errors':errors, 'notes':notes} )
 
 # the profile view
 def view_profile(request):
@@ -72,7 +77,7 @@ def view_profile(request):
         if game.id in beaten_ids:
             beaten.append(game)
     
-    return render(request, template, {'email':email, 'owned':owned, 'beaten':beaten })
+    return render(request, template, {'email':email, 'owned':owned, 'beaten':beaten})
 
 # handles the editing of beaten or owned games in the profile
 def edit_games(request):

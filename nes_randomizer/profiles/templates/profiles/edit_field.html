@@ -10,6 +10,7 @@
         {% if field == 'email' %}
             <tr><td>Email: <input type="text" name="email" value='{{ email }}' required></td></tr>
         {% elif field == 'password' %}
+            <tr><td>Current Password</td><td><input type="password" name="password" value='' required></td></tr>
             <tr><td>New Password</td><td><input type="password" name="new_pass" value='' required></td></tr>
             <tr><td>Confirm Password</td><td><input type="password" name="conf_pass" value='' required></td></tr>
         {% endif %}
@@ -23,6 +24,13 @@
     {% for error in errors %}
         {{ error }}
     {% endfor %}
+{% endif %}
+
+{% if notes %}
+    <script type="text/javascript">
+        alert('{{ notes }}');
+        window.location.href="/profiles/";
+    </script>
 {% endif %}
 
 {% endblock %}
