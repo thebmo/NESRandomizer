@@ -10,7 +10,6 @@
         {% if field == 'email' %}
             <tr><td>Email: <input type="text" name="email" value='{{ email }}' required></td></tr>
         {% elif field == 'password' %}
-            <tr><td>Old Password</td><td><input type="password" name="old_pass" value='' required></td></tr>
             <tr><td>New Password</td><td><input type="password" name="new_pass" value='' required></td></tr>
             <tr><td>Confirm Password</td><td><input type="password" name="conf_pass" value='' required></td></tr>
         {% endif %}
@@ -19,7 +18,7 @@
     </fieldset>
 </form>
 
-{% if errors %}
+{% if errors %}<br/>
     <font color='red'>
     {% for error in errors %}
         {{ error }}

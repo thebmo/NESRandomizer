@@ -12,29 +12,31 @@ def edit_field(request):
     field = ''
     template = 'profiles/edit_field.html'
     errors = []
-    
-    # if you are updating, run below instead!
-    user = User.objects.get(id=request.user.id)
-    
-    print user.password
-    print request.POST['old_pass']
-    
-    if 'email' in request.POST or 'password' in request.POST:
-        if 'email' in request.POST:
-            user.email = request.POST['email']
-            user.save()
-            
-        elif 'old_pass' in request.POST:
-            if clean(User.password) == request.POST['old_pass']: #this doesnt work. figure out how to validate correctly 
-                print 'PASSWORDS MATCH!\n'
-        
-        return redirect('/profiles/')
-    
+    notes = []
+
     if 'password' in request.path:
         field = 'password'
     elif 'email' in request.path:
         field = 'email'
-    return render(request, template, {'field':field} )
+    
+    # if you are updating, run below instead!
+    user = User.objects.get(id=request.user.id)
+    
+    if 'email' in request.POST or 'new_pass' in request.POST:
+        if 'email' in request.POST:
+            user.email = request.POST['email']
+            user.save()
+            notes.append('Email updated successfully')
+            
+        elif 'new_pass' in request.POST:
+            if request.POST['new_pass'] == request.POST['conf_pass']:
+                notes.append('Password updated successfully')
+            else:
+                errors.append('Passwords do not match.')
+                return render(request, template, {'field':field, 'errors':errors, 'notes':notes} )
+        return redirect('/profiles/', {'notes':notes})
+    
+    return render(request, template, {'field':field, 'errors':errors} )
 
 # the profile view
 def view_profile(request):

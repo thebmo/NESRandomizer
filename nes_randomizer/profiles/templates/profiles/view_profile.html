@@ -30,4 +30,10 @@ Email: {{ user.email }} (<a href='{% url 'prof:email' %}'>update</a>)<br /> <!--
 </td></tr>
 </table>
 
+{% if notes %}
+    {% for not in notes %}
+        {{ note }}<br/>
+    {% endfor %}
+{% endif %}
+
 {% endblock %}
