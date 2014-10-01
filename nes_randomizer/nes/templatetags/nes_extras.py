@@ -19,6 +19,10 @@ def fetch_owned(request):
 def fetch_beaten(request):
     return BeatenGame.objects.filter(user_id=request.user.id)
 
+# returns a google search link to be used in templates
+def create_google_url(game):
+    return (''.join(('https://www.google.com/#q=nes+', str(game.title).replace(' ','+'))))
+    
     
 # ******************************************* #
 # filter_games()                              #

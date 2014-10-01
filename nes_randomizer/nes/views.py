@@ -10,9 +10,10 @@ from .templatetags import nes_extras as NES
 # class IndexView(generic.ListView):
     # template = 'nes/index.html'
 
-def game_details(request):
-    template = 'nes/search_games.html'
-    return render(request, template, {})
+def game_details(request, game_id):
+    template = 'nes/game_details.html'
+    game = Game.objects.get(id = game_id)
+    return render(request, template, { 'game':game })
 
 def search_games(request):
     template = 'nes/search_games.html'
@@ -72,7 +73,8 @@ def random_game(request):
         random_game = NES.filter_games(all_games, params, games_owned, beaten_games)
         if random_game:
             random_game = random.choice(random_game)
-            game_url= str(random_game.title).replace(' ','+')
+            game_url = NES.create_google_url(random_game)
+            
         else:
             errors.append('No games match this criteria. Remove some filters!')
 
