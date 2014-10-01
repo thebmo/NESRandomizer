@@ -18,7 +18,21 @@ def search_games(request):
     template = 'nes/search_games.html'
     errors = []
     if request.POST:
-        games = Game.objects.filter(title__icontains = request.POST['q'])
+        games = []
+        G = Game.objects.filter(title__icontains = request.POST['q'])
+        for g in G:
+            games.append(g)
+        G = Game.objects.filter(genre__icontains = request.POST['q'])
+        for g in G:
+            games.append(g)
+        G = Game.objects.filter(publisher__icontains = request.POST['q'])
+        for g in G:
+            games.append(g) 
+        G = Game.objects.filter(year__icontains = request.POST['q'])
+        for g in G:
+            games.append(g) 
+        
+        
         if not games:
             errors.append('No games found')
     else:    
