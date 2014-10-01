@@ -1,0 +1,36 @@
+{% extends "mysite/base.html" %}
+{% block content %}
+
+<!-- loading stuff up here -->
+{% load nes_extras %}
+
+<br />
+
+<form name="Search NES" action="" method="post">
+    {% csrf_token %}
+    <input type="text" value="" name="q">
+    <input type="submit" value ="Search">
+    {% if errors %}
+        <font color='red'>
+        {% for error in errors %}
+            {{ error }}
+        {% endfor %}
+        </font>
+    {% endif %}
+</form>
+{% if games %}
+    <table border=1>
+        
+        <tr><td><b>Title</b></td><td><b>Genre</b></td><td><b>Publisher</b></td><td><b>Year</b></td><td><b>Region</b></td><tr>
+        {% for game in games %}
+            <tr>
+                <td>{{ game.title }}</td>
+                <td>{{ game.genre }}</td>
+                <td>{{ game.publisher }}</td>
+                <td>{{ game.year }}</td>
+                <td>{{ game.region }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endif %}
+{% endblock %}

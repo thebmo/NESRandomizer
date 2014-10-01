@@ -8,14 +8,29 @@ from .templatetags import nes_extras as NES
 # Create your views here.
 
 # class IndexView(generic.ListView):
-    # template_name= 'nes/index.html'
+    # template = 'nes/index.html'
 
+def game_details(request):
+    template = 'nes/search_games.html'
+    return render(request, template, {})
+
+def search_games(request):
+    template = 'nes/search_games.html'
+    errors = []
+    if request.POST:
+        games = Game.objects.filter(title__icontains = request.POST['q'])
+        if not games:
+            errors.append('No games found')
+    else:    
+        games = Game.objects.all()
+    return render(request, template, { 'errors':errors, 'games':games })
+    
 def index(request):
-    template_name= 'nes/index.html'
-    return render(request, template_name,)
+    template = 'nes/index.html'
+    return render(request, template,)
 
 def random_game(request):
-    template_name = 'nes/random.html'
+    template = 'nes/random.html'
     errors = []
     debug = True
     # debug = False
@@ -47,5 +62,5 @@ def random_game(request):
         else:
             errors.append('No games match this criteria. Remove some filters!')
 
-        return render(request, template_name, {'game':random_game, 'selection':params['selection'], 'beaten':params['beaten'], 'genres':params['genres'], 'game_url':game_url, 'errors':errors, 'debug':debug})
-    return render(request, template_name,)
+        return render(request, template, {'game':random_game, 'selection':params['selection'], 'beaten':params['beaten'], 'genres':params['genres'], 'game_url':game_url, 'errors':errors, 'debug':debug})
+    return render(request, template,)
