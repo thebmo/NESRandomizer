@@ -13,7 +13,8 @@ from .templatetags import nes_extras as NES
 def game_details(request, game_id):
     template = 'nes/game_details.html'
     game = Game.objects.get(id = game_id)
-    return render(request, template, { 'game':game })
+    game_url = NES.create_google_url(game)
+    return render(request, template, { 'game':game, 'game_url':game_url })
 
 def search_games(request):
     template = 'nes/search_games.html'

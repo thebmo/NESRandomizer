@@ -27,6 +27,12 @@ def register(request):
             error='Email \'%s\' already in use.' % email
             return render(request, 'registration/register.html', {'error':error})
         
+        # checks if username already taken
+        if User.objects.get(username = username.lower()):
+            error='Username \'%s\' unavailable.' % username
+            return render(request, 'registration/register.html', {'error':error})
+        
+        # trys to create and login the user
         try:
             user= User.objects.create_user(username, email, password)
             user = authenticate(username=username, password=password)

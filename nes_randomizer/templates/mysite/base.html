@@ -15,7 +15,7 @@
                     <a href="{% url 'polls:index' %}">POLLS</a> | 
                 {% endif %}
                 {% if user.is_authenticated %}
-                    <a href="{% url 'prof:view_profile' %}">Edit Profile</a> | 
+                    <a href="{% url 'prof:view_profile' %}">Profile</a> | 
                     <a href="{% url 'logout' %}">Log Out</a>
                 {% else %}
                     <a href="{% url 'reg:register' %}">Register</a> | 
