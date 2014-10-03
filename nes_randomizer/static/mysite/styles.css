@@ -1,13 +1,37 @@
+/* main styles */
 body {
     background: url("images/background.png");
     color: white;
     }
-ul {
+a {
     color: red;
+    }
+a:hover {
+    color: grey;
+    }
+/* end main styles */
+
+    
+/* main list styles     */
+ul {
+    /* color: white; */
+    list-style-type: none;
+    position: relative;
+    margin-left: 2em;
+    padding-left: 0;
     }
 li a {
     color: white;
     }
+li:before {
+    content: "\2022";
+    position: absolute;
+    left: -1em;
+    color: red;
+    margin-right: 5px;
+    }
+/* end main list styles */
+
     
 h1 {
     color: red;
@@ -15,11 +39,13 @@ h1 {
 h3 {
     color: red;
     }
-a {
-    color: red;
-    }
 
 table {
     border-color: black;
     background-color: grey;
+    }
+    
+div .menu {
+    background: white;
+    padding-left: 10px;
     }
