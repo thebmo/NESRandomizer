@@ -2,12 +2,25 @@
 body {
     background: url("images/background.png");
     color: white;
+    height: 100%;
     }
 a {
     color: red;
     }
 a:hover {
-    color: grey;
+    color: black;
+    }
+div .wrapper {
+    height: 900px;
+    }
+div .inner_wrapper {
+    margin-left: 15%;
+    margin-right: 20%;
+    height: 900px;
+    background-color: gray;
+}    
+div .content {
+    padding: 10px;
     }
 /* end main styles */
 
@@ -45,7 +58,20 @@ table {
     background-color: grey;
     }
     
+/* MENU DIV STYLES     */
 div .menu {
+    font-weight: bold;
     background: white;
     padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-style: solid;
+    border-color: red;
     }
+div .menu a {
+    color: red;
+    }
+div .menu a:hover {
+    color: grey;
+    }
+/* END MENU DIV STYLES     */
