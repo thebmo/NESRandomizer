@@ -1,6 +1,8 @@
 {% extends "mysite/base.html" %}
-<!-- {% block title %}My amazing blog{% endblock %} -->
 {% block content %}
+
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'polls/styles.css'%}" />
 
 {% if latest_poll_list %}
     <ul>

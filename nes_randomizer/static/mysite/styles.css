@@ -1,0 +1,25 @@
+body {
+    background: url("images/background.png");
+    color: white;
+    }
+ul {
+    color: red;
+    }
+li a {
+    color: white;
+    }
+    
+h1 {
+    color: red;
+    }
+h3 {
+    color: red;
+    }
+a {
+    color: red;
+    }
+
+table {
+    border-color: black;
+    background-color: grey;
+    }
