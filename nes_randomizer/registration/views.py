@@ -28,22 +28,16 @@ def register(request):
             return render(request, 'registration/register.html', {'error':error})
         
         # checks if username already taken
-        if User.objects.get(username = username.lower()):
-            error='Username \'%s\' unavailable.' % username
-            return render(request, 'registration/register.html', {'error':error})
-        
-        # trys to create and login the user
         try:
+            if User.objects.get(username = username.lower()):
+                error='Username \'%s\' unavailable.' % username
+                return render(request, 'registration/register.html', {'error':error})
+        except:
+            pass
             user= User.objects.create_user(username, email, password)
             user = authenticate(username=username, password=password)
             login(request, user)
             return redirect('index',)
-        
-        except IntegrityError as e:
-            if 'username' in e.message:
-                error='Username \'%s\' unavailable.' % username
-                
-            return render(request, 'registration/register.html', {'error':error})
             
     
     
