@@ -23,10 +23,6 @@ def register(request):
         if 'last_name' in request.POST:
             last_name=request.POST['last_name']
         
-        if email and User.objects.filter(email=email).count() > 0:
-            error='Email \'%s\' already in use.' % email
-            return render(request, 'registration/register.html', {'error':error})
-        
         # checks if username already taken
         try:
             if User.objects.get(username = username.lower()):
@@ -34,10 +30,14 @@ def register(request):
                 return render(request, 'registration/register.html', {'error':error})
         except:
             pass
-            user= User.objects.create_user(username, email, password)
-            user = authenticate(username=username, password=password)
-            login(request, user)
-            return redirect('index',)
+            if email and User.objects.filter(email=email).count() > 0:
+                error='Email \'%s\' already in use.' % email
+                return render(request, 'registration/register.html', {'error':error})
+            else:
+                user= User.objects.create_user(username, email, password)
+                user = authenticate(username=username, password=password)
+                login(request, user)
+                return redirect('index',)
             
     
     
