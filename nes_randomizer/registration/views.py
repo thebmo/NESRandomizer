@@ -23,21 +23,18 @@ def register(request):
         if 'last_name' in request.POST:
             last_name=request.POST['last_name']
         
-        # checks if username already taken
-        try:
-            if User.objects.get(username = username.lower()):
-                error='Username \'%s\' unavailable.' % username
-                return render(request, 'registration/register.html', {'error':error})
-        except:
-            pass
-            if email and User.objects.filter(email=email).count() > 0:
-                error='Email \'%s\' already in use.' % email
-                return render(request, 'registration/register.html', {'error':error})
-            else:
-                user= User.objects.create_user(username, email, password)
-                user = authenticate(username=username, password=password)
-                login(request, user)
-                return redirect('index',)
+        # checks if username or email already taken
+        if User.objects.filter(username__iexact = username):
+            error='Username \'%s\' unavailable.' % username
+            return render(request, 'registration/register.html', {'error':error})
+        elif email and User.objects.filter(email__iexact = email):
+            error='Email \'%s\' already in use.' % email
+            return render(request, 'registration/register.html', {'error':error})
+        else:
+            user= User.objects.create_user(username, email, password)
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return redirect('index',)
             
     
     

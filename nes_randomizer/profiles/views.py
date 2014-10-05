@@ -25,9 +25,12 @@ def edit_field(request):
     
     if 'email' in request.POST or 'new_pass' in request.POST:
         if 'email' in request.POST:
-            user.email = request.POST['email']
-            user.save()
-            notes='Email updated successfully to: %s' % user.email
+            if User.objects.filter(email__iexact = request.POST['email']):
+                errors.append(('Email \'%s\' already registered.' % request.POST['email']))
+            else:
+                user.email = request.POST['email']
+                user.save()
+                notes='Email updated successfully to: %s' % user.email
             
         elif 'new_pass' in request.POST:
             if check_password(request.POST['password'], user.password):
