@@ -14,18 +14,24 @@
         <div class = "inner_wrapper">
             <div class = "menu" id="sidebar">
                 {% block sidebar %}
-                    <a href="{% url 'index' %}">HOME</a> | 
-                    <a href="{% url 'nes:index' %}">NES</a> | 
-                    {% if user.is_staff %}
-                        <a href="{% url 'polls:index' %}">POLLS</a> | 
-                    {% endif %}
-                    {% if user.is_authenticated %}
-                        <a href="{% url 'prof:view_profile' %}">Profile</a> | 
-                        <a href="{% url 'logout' %}">Log Out</a>
-                    {% else %}
-                        <a href="{% url 'reg:register' %}">Register</a> | 
-                        <a href="{% url 'login' %}">Log In</a>
-                    {% endif %}
+                    <font class="left">
+                        <a href="{% url 'index' %}">HOME</a> | 
+                        <a href="{% url 'nes:index' %}">NES</a> | 
+                        {% if user.is_staff %}
+                            <a href="{% url 'polls:index' %}">POLLS</a> | 
+                        {% endif %}
+                    </font>
+                    
+                    <font class="right">
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'prof:view_profile' %}">Profile</a> | 
+                            <a href="{% url 'logout' %}">Log Out</a>
+                        {% else %}
+                            <a href="{% url 'reg:register' %}">Register</a> | 
+                            <a href="{% url 'login' %}">Log In</a> 
+                        {% endif %}
+                    </font>
+
                 {% endblock %}
             </div>
 

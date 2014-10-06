@@ -11,12 +11,14 @@ a:hover {
     color: black;
     }
 div .wrapper {
-    height: 900px;
+    height: auto;
+    width: auto;
     }
 div .inner_wrapper {
     margin-left: 15%;
     margin-right: 20%;
-    height: 900px;
+    width: 700px;
+    min-height: 900px;
     background-color: gray;
 }    
 div .content {
@@ -63,10 +65,12 @@ div .menu {
     font-weight: bold;
     background: white;
     padding-left: 10px;
+    padding-right: 10px;
     padding-top: 5px;
     padding-bottom: 5px;
     border-style: solid;
     border-color: red;
+    height: 20px;
     }
 div .menu a {
     color: red;
@@ -74,4 +78,11 @@ div .menu a {
 div .menu a:hover {
     color: grey;
     }
+.left {
+    float: left;
+    }
+.right {
+    float:right;
+    }
+    
 /* END MENU DIV STYLES     */
