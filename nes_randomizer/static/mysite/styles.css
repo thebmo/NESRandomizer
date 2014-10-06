@@ -50,15 +50,29 @@ li:before {
     
 h1 {
     color: red;
+    background: white;
+    border: red solid;
+    padding-left: 5px;
+    padding-right: 5px;
+    display: inline-block;
     }
 h3 {
     color: red;
     }
 
-table {
-    border-color: black;
-    background-color: grey;
+    
+/* browse game styles */
+.games td {
+    border: 1px solid black;
+    background: black;
+    padding-left: 5px;
+    padding-right: 5px;
     }
+.games a:hover {
+    color: white;
+    }
+/* end browse game styles */
+
     
 /* MENU DIV STYLES     */
 div .menu {

@@ -19,18 +19,20 @@
     {% endif %}
 </form>
 {% if games %}
-    <table border=1>
-        
-        <tr><td><b>Title</b></td><td><b>Genre</b></td><td><b>Publisher</b></td><td><b>Year</b></td><td><b>Region</b></td><tr>
-        {% for game in games %}
-            <tr>
-                <td><a href="{% url 'nes:details' game.id %}">{{ game.title }}</a></td>
-                <td>{{ game.genre }}</td>
-                <td>{{ game.publisher }}</td>
-                <td>{{ game.year }}</td>
-                <td>{{ game.region }}</td>
-            </tr>
-        {% endfor %}
-    </table>
+    <div class="games">
+        <table>
+            
+            <tr><td><b>Title</b></td><td><b>Genre</b></td><td><b>Publisher</b></td><td><b>Year</b></td><td><b>Region</b></td><tr>
+            {% for game in games %}
+                <tr>
+                    <td><a href="{% url 'nes:details' game.id %}">{{ game.title }}</a></td>
+                    <td>{{ game.genre }}</td>
+                    <td>{{ game.publisher }}</td>
+                    <td>{{ game.year }}</td>
+                    <td>{{ game.region }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 {% endif %}
 {% endblock %}

@@ -9,3 +9,4 @@ nes_randomizer/mysite/urls.pyc
 nes_randomizer/mysite/views.pyc
 nes_randomizer/profiles/views.pyc
 nes_randomizer/db.sqlite3
+nes_randomizer/mysite/static/*
