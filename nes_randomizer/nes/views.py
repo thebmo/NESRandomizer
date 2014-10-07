@@ -14,7 +14,8 @@ def game_details(request, game_id):
     template = 'nes/game_details.html'
     game = Game.objects.get(id = game_id)
     game_url = NES.create_google_url(game)
-    return render(request, template, { 'game':game, 'game_url':game_url })
+    game_search = NES.create_search_string(game)
+    return render(request, template, { 'game':game, 'game_url':game_url, 'game_search':game_search })
 
 def search_games(request):
     template = 'nes/search_games.html'
@@ -61,7 +62,7 @@ def random_game(request):
         games_owned = {}
         beaten_games = {}
         game_url=''
-        
+        game_search= ''
         
         # sets the games owned argument for NES.filter_games()
         if params['selection'] == 'owned':
@@ -75,6 +76,7 @@ def random_game(request):
         if random_game:
             random_game = random.choice(random_game)
             game_url = NES.create_google_url(random_game)
+            game_search = NES.create_search_string(random_game)
             
         else:
             errors.append('No games match this criteria. Remove some filters!')

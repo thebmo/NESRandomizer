@@ -22,6 +22,10 @@ def fetch_beaten(request):
 # returns a google search link to be used in templates
 def create_google_url(game):
     return (''.join(('https://www.google.com/#q=nes+', str(game.title).replace(' ','+'))))
+
+# creates and returns a string for searching api's
+def create_search_string(game):
+    return (''.join(('nes+', str(game.title).replace(' ','+'))))
     
     
 # ******************************************* #
