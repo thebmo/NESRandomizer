@@ -2,10 +2,60 @@
 {% block content %}
 <h1>{{ game.title }}</h1>
 <br>
-<a href='{{ game_url }}' target = '_blank'>google</a><
+<a href='{{ game_url }}' target = '_blank'>google</a>
 
 
-<div id="results"></div>
+
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'mysite/tabs.css' %}" />
+
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<!-- <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script> -->
+<!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+	$(".tab_content").hide();
+	$(".tab_content:first").show(); 
+
+	$("ul.tabs li").click(function() {
+		$("ul.tabs li").removeClass("active");
+		$(this).addClass("active");
+		$(".tab_content").hide();
+		var activeTab = $(this).attr("rel"); 
+		$("#"+activeTab).fadeIn(); 
+	});
+});
+
+</script> 
+
+
+
+
+
+<ul class = "tabs">
+    <li class = "active" rel="results">eBay</li>
+    <li rel="tab2">Amazon</li>
+    <li rel="tab3">Thing3</li>
+</ul>
+<div id="results" class = "tab_content"></div>
+<div id="tab2" class = "tab_content">
+    <p>
+        place holder for amazon
+    </p>
+</div>
+<div id="tab3" class = "tab_content">
+    <p>
+        some other thing
+    </p>
+</div>
+
+
+
+
+
 
 <script>
 function _cb_findItemsByKeywords(root)
