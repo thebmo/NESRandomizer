@@ -42,9 +42,16 @@ $(document).ready(function() {
 </ul>
 <div id="results" class = "tab_content"></div>
 <div id="tab2" class = "tab_content">
-    <p>
-        place holder for amazon
-    </p>
+    <table class="games" width="100%">
+        <tbody>
+            <tr><td>
+                <img src="{{ amazon_game.medium_image_url }}"</td><td>
+                {{ amazon_game.title }}</td><td>
+                ${{ amazon_game.price_and_currency.0 }} 
+                {{ amazon_game.price_and_currency.1 }}</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 <div id="tab3" class = "tab_content">
     <p>

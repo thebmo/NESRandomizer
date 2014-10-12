@@ -1,5 +1,21 @@
 from django import template
 from nes.models import *
+from amazon.api import AmazonAPI
+import os
+
+# looks up the amazon game
+# returns a single product
+def fetch_from_amazon(game):
+    title = ''.join(('NES ', game.title))
+    
+    AMAZON_ACCESS = os.environ['AMAZON_ACCESS']
+    AMAZON_SECRET = os.environ['AMAZON_SECRET']
+    AMAZON_AWS = os.environ['AMAZON_AWS']
+    
+    amazon = AmazonAPI(AMAZON_ACCESS, AMAZON_SECRET,AMAZON_AWS)
+    products = amazon.search_n(1, Keywords=title, Condition='Used', SearchIndex = 'VideoGames')
+    product = amazon.lookup(ItemId=products[0].asin, Condition='Used')
+    return product
 
 register = template.Library()
 
