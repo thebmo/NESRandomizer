@@ -10,3 +10,4 @@ nes_randomizer/mysite/views.pyc
 nes_randomizer/profiles/views.pyc
 nes_randomizer/db.sqlite3
 nes_randomizer/mysite/static/*
+nes_randomizer/nes/templatetags/nes_extras.pyc

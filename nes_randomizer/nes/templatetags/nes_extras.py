@@ -1,7 +1,30 @@
 from django import template
 from nes.models import *
 from amazon.api import AmazonAPI
-import os
+import os, urllib2
+from bs4 import BeautifulSoup
+
+
+# returns the html from nesguide.com
+def fetch_game_html(game):
+    
+    title = game.title.replace(':','').replace('IV', '4').replace('III','3').replace('II','2').replace('\'','').replace('\&','and').lower()
+    
+    if ', the' in title:
+        title = 'the ' + title.replace(', the', '')
+    if ', disneys' in title:
+        title = 'disneys ' + title.replace(', disneys', '')
+    
+    title = title.replace('\,','').replace(' ', '-')
+    print title
+    link = 'http://nesguide.com/games/' + title
+    url = urllib2.urlopen(link)
+    html = url.read()
+    soup = BeautifulSoup(html).find(id="descript")
+    # description = soup.get_text(soup.find(id="descript"))
+    description = soup.get_text()
+    return description
+
 
 # looks up the amazon game
 # returns a single product
