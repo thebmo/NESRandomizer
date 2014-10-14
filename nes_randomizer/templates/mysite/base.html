@@ -24,6 +24,7 @@
                     
                     <font class="right">
                         {% if user.is_authenticated %}
+                            <font color = 'red'>{{ user.username }} : </font>
                             <a href="{% url 'prof:view_profile' %}">Profile</a> | 
                             <a href="{% url 'logout' %}">Log Out</a>
                         {% else %}

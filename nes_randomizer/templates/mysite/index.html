@@ -1,10 +1,27 @@
 {% extends "mysite/base.html" %}
 {% block content %}
 
-<h1>Hey, {{ user.username }} this is the menu:</h1><br>
+<center><h1>Welcome to the NES Randomizer!</h1></center>
 {% if error_message %}<p><strong>{{ error_message }} </strong</p>{% endif %}
+<div class = "block" id = "main">
+    <p>
+        Welcome to the NES randomizer. This site was built entirely from scratch using Python's Django 1.6 framework. This site is aimed at users who wish to easily build, maintain, and beat their collection of NES titles. This project originally started out as a spreadsheet, then evolved into a basic python application, and finally a web app. This site is the creation of a labor of love as well as self-educational purposes. (I am self taught)
+    </p>
+    <p>
+        The <a href="{% url 'nes:random'%}">NES randomizer</a> itself is a form with built in filters. Though you do not have to be logged in to use the genre filters, you will need to create an account to use the beaten and owned game selection filters. Please note the "Pick Some" feature is not yet enabled.
+    </p>
+    
+    <p>
+        You can maintain your owned and beaten titles via the Profile link int he top right of the menu once you are are registered. Please send any found bugs or suggestions to <strong>NESRandomizer@gmail.com</strong> so that I can take a look. Please note that this site is still under heavy development.<br><br>
+        
+        <font color = "red">-Bmo</font.
+    </p>
+    
+</div>
 
-{% if not user.is_authenticated %}
+
+
+<!-- {% if not user.is_authenticated %}
     <a href="{% url 'login' %}">Login</a> or <a href="{% url 'reg:register' %}">Register</a><br />
 {% else %}
     <a href="{% url 'prof:view_profile' %}"> Edit Profile</a> | 
@@ -23,6 +40,6 @@
     {% if user.is_staff %}
         <li><a href="{% url 'polls:index' %}">POLLS</a></li>
     {% endif %}
-</ul>
+</ul> -->
 
 {% endblock %}

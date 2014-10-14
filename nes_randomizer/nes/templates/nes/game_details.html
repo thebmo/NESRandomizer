@@ -3,9 +3,13 @@
 <h1>{{ game.title }}</h1>
 <br>
 <a href='{{ game_url }}' target = '_blank'>google</a>
-<p>
-    {{ desc }}
-</p>
+<div class = "block" id = "description">
+    <p>
+        {{ desc }}
+    </p>
+    <i>note: this text was taken from <a href="http://nesguide.com/" target="_blank">NESGuide.com</a></i>
+    <div style="clear: both;"></div>
+</div>
 
 
 
@@ -45,16 +49,22 @@ $(document).ready(function() {
 </ul>
 <div id="results" class = "tab_content"></div>
 <div id="tab2" class = "tab_content">
-    <table class="games" width="100%">
-        <tbody>
-            <tr><td>
-                <img src="{{ amazon_game.medium_image_url }}"</td><td>
-                {{ amazon_game.title }}</td><td>
-                ${{ amazon_game.price_and_currency.0 }} 
-                {{ amazon_game.price_and_currency.1 }}</td>
-            </tr>
-        </tbody>
-    </table>
+    {% if amazone_game %}
+        <table class="games" width="100%">
+            <tbody>
+                <tr><td>
+                    <img src="{{ amazon_game.medium_image_url }}"</td><td>
+                    {{ amazon_game.title }}</td><td>
+                    ${{ amazon_game.price_and_currency.0 }} 
+                    {{ amazon_game.price_and_currency.1 }}</td>
+                </tr>
+            </tbody>
+        </table>
+    {% else %}
+        <p>
+            Game not found on amazon.
+        </p>
+    {% endif %}
 </div>
 <div id="tab3" class = "tab_content">
     <p>

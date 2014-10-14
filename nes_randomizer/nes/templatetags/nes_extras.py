@@ -4,6 +4,12 @@ from amazon.api import AmazonAPI
 import os, urllib2
 from bs4 import BeautifulSoup
 
+register = template.Library()
+
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)
+
 
 # returns the html from nesguide.com
 def fetch_game_html(game):
@@ -36,15 +42,12 @@ def fetch_from_amazon(game):
     AMAZON_AWS = os.environ['AMAZON_AWS']
     
     amazon = AmazonAPI(AMAZON_ACCESS, AMAZON_SECRET,AMAZON_AWS)
-    products = amazon.search_n(1, Keywords=title, Condition='Used', SearchIndex = 'VideoGames')
-    product = amazon.lookup(ItemId=products[0].asin, Condition='Used')
-    return product
-
-register = template.Library()
-
-@register.filter
-def get_item(dictionary, key):
-    return dictionary.get(key)
+    try:
+        products = amazon.search_n(1, Keywords=title, Condition='Used', SearchIndex = 'VideoGames')
+        if products:
+            return amazon.lookup(ItemId=products[0].asin, Condition='Used')
+    except:
+        pass
 
 # fetches all games in the DB
 def fetch_games(request):
