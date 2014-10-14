@@ -44,8 +44,7 @@ def fetch_from_amazon(game):
     amazon = AmazonAPI(AMAZON_ACCESS, AMAZON_SECRET,AMAZON_AWS)
     try:
         products = amazon.search_n(1, Keywords=title, Condition='Used', SearchIndex = 'VideoGames')
-        if products:
-            return amazon.lookup(ItemId=products[0].asin, Condition='Used')
+        return amazon.lookup(ItemId=products[0].asin, Condition='Used')
     except:
         pass
 
