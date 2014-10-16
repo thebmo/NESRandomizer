@@ -21,7 +21,7 @@ def fetch_game_html(game):
     if ', disneys' in title:
         title = 'disneys ' + title.replace(', disneys', '')
     
-    title = title.replace('\,','').replace(' ', '-')
+    title = title.replace('\,','').replace(' ', '-').replace('.', '').replace('!', '')
     print title
     link = 'http://nesguide.com/games/' + title
     url = urllib2.urlopen(link)
