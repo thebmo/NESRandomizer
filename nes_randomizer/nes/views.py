@@ -17,7 +17,8 @@ def game_details(request, game_id):
     game_search = NES.create_search_string(game)
     amazon_game = NES.fetch_from_amazon(game)
     desc = NES.fetch_game_html(game)
-    return render(request, template, { 'game':game, 'game_url':game_url, 'game_search':game_search, 'amazon_game':amazon_game,'desc':desc })
+    videos = NES.fetch_game_videos(game)
+    return render(request, template, { 'game':game, 'game_url':game_url, 'game_search':game_search, 'amazon_game':amazon_game,'desc':desc, 'videos':videos })
 
 def search_games(request):
     template = 'nes/search_games.html'

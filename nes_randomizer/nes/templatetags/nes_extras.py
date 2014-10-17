@@ -3,12 +3,41 @@ from nes.models import *
 from amazon.api import AmazonAPI
 import os, urllib2
 from bs4 import BeautifulSoup
+# yt search test
+import gdata.youtube
+import gdata.youtube.service
+
 
 register = template.Library()
 
 @register.filter
 def get_item(dictionary, key):
     return dictionary.get(key)
+
+
+# returns a list of youtube objects in a list
+def fetch_game_videos(game):
+    v_keys = []
+    # opens the ytb service
+    yt_service = gdata.youtube.service.YouTubeService()
+
+    # authorize - you need to sign up for your own access key, or be rate-limited
+    yt_service.developer_key = 'AIzaSyCmp1cIUcfdKA_11oHEFuoEwhoJHN_SmHc'
+    yt_service.client_id = '1026226105500.apps.googleusercontent.com'
+
+
+    query = gdata.youtube.service.YouTubeVideoQuery()
+
+    query.vq = 'NES ' + game.title
+    query.max_results = 3
+    query.orderby = 'relevance'
+    query.racy = 'include'
+
+    feed = yt_service.YouTubeQuery(query)
+    for entry in feed.entry:
+        v_keys.append(entry.id.text.replace('http://gdata.youtube.com/feeds/videos/', ''))
+    print v_keys
+    return v_keys
 
 
 # returns the html from nesguide.com

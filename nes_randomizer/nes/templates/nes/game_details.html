@@ -43,10 +43,24 @@ $(document).ready(function() {
 
 
 <ul class = "tabs">
-    <li class = "active" rel="results">eBay</li>
+    <li class = "active" rel="tab3">Youtube</li>
+    <li rel="results">eBay</li>
     <li rel="tab2">Amazon</li>
-    <li rel="tab3">Thing3</li>
 </ul>
+<div id="tab3" class = "tab_content">
+    {% if videos %}
+        <table class="games" width="100%">
+            <tbody>
+                {% for video in videos %}
+                    <tr><td>
+                        <center>
+                        <iframe width="560" height="315" src="//www.youtube.com/embed/{{ video }}" frameborder="0" allowfullscreen></iframe></center>
+                    </td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</div>
 <div id="results" class = "tab_content"></div>
 <div id="tab2" class = "tab_content">
     {% if amazon_game %}
@@ -65,11 +79,6 @@ $(document).ready(function() {
             Game not found on amazon.
         </p>
     {% endif %}
-</div>
-<div id="tab3" class = "tab_content">
-    <p>
-        some other thing
-    </p>
 </div>
 
 
