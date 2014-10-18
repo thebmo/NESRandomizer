@@ -22,8 +22,8 @@ def fetch_game_videos(game):
     yt_service = gdata.youtube.service.YouTubeService()
 
     # authorize - you need to sign up for your own access key, or be rate-limited
-    yt_service.developer_key = 'AIzaSyCmp1cIUcfdKA_11oHEFuoEwhoJHN_SmHc'
-    yt_service.client_id = '1026226105500.apps.googleusercontent.com'
+    yt_service.developer_key = os.environ['yt_dev']
+    yt_service.client_id = os.environ['yt_client']
 
 
     query = gdata.youtube.service.YouTubeVideoQuery()
