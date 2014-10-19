@@ -1,11 +1,11 @@
+import os, urllib2
+import gdata.youtube
+import gdata.youtube.service
+import re
 from django import template
 from nes.models import *
 from amazon.api import AmazonAPI
-import os, urllib2
 from bs4 import BeautifulSoup
-# yt search test
-import gdata.youtube
-import gdata.youtube.service
 
 
 register = template.Library()
@@ -42,15 +42,36 @@ def fetch_game_videos(game):
 
 # returns the html from nesguide.com
 def fetch_game_html(game):
+    title = game.title
+    print title
+    if re.search(', \w* \w*\'s', title, flags=re.IGNORECASE):
+        title = title.split(', ')
+        title = ' '.join((title[1], title[0]))
+
+    title = title.replace(':','').replace('IV', '4').replace('III','3').replace('II','2').replace('\'','').replace('\&','and').replace(' - ', ' ').lower()
     
-    title = game.title.replace(':','').replace('IV', '4').replace('III','3').replace('II','2').replace('\'','').replace('\&','and').lower()
     
+    # add these 2
+    # http://nesguide.com/games/tc-surf-designs-thrillas-surfari/
+    # http://nesguide.com/games/t-and-c-surf-designs/
+    
+    #corner cases
+    if ', disneys' in title:
+        title = title.split(', ')
+        title = ' '.join((title[1], title[0]))
     if ', the' in title:
         title = 'the ' + title.replace(', the', '')
-    if ', disneys' in title:
-        title = 'disneys ' + title.replace(', disneys', '')
+    if ', legend of' in title:
+        title = 'the-legend-of ' + title.replace(', legend of', '')
+    if 'fisher-price' in title:
+            if '- fisher-price' in title:
+                title = title.split(' - ')
+                title = title[1] + ' ' + title[0]
+            else:
+                title = title.split(', ')
+                title = ' '.join((title[1], title[0]))
     
-    title = title.replace('\,','').replace(' ', '-').replace('.', '').replace('!', '')
+    title = title.replace(',','').replace(' ', '-').replace('.', '').replace('!', '')
     print title
     link = 'http://nesguide.com/games/' + title
     url = urllib2.urlopen(link)
