@@ -36,7 +36,7 @@ def fetch_game_videos(game):
     feed = yt_service.YouTubeQuery(query)
     for entry in feed.entry:
         v_keys.append(entry.id.text.replace('http://gdata.youtube.com/feeds/videos/', ''))
-    print v_keys
+    
     return v_keys
 
 
@@ -50,12 +50,15 @@ def fetch_game_html(game):
 
     title = title.replace(':','').replace('IV', '4').replace('III','3').replace('II','2').replace('\'','').replace('\&','and').replace(' - ', ' ').lower()
     
-    
-    # add these 2
-    # http://nesguide.com/games/tc-surf-designs-thrillas-surfari/
-    # http://nesguide.com/games/t-and-c-surf-designs/
-    
     #corner cases
+    # Thrilla's Surfari - T and C II
+    if 'thrillas' in title:
+        title = 'tc-surf-designs-thrillas-surfari'
+    
+    # T and C Surf Designs: Wood and Water Rage
+    if 't and c' in title:
+        title = 't-and-c-surf-designs'
+    
     if ', disneys' in title:
         title = title.split(', ')
         title = ' '.join((title[1], title[0]))
@@ -71,19 +74,23 @@ def fetch_game_html(game):
                 title = title.split(', ')
                 title = ' '.join((title[1], title[0]))
     
+    # replaces the rest
     title = title.replace(',','').replace(' ', '-').replace('.', '').replace('!', '')
+    
+    # for testting
     print title
+    
     link = 'http://nesguide.com/games/' + title
     url = urllib2.urlopen(link)
     html = url.read()
     soup = BeautifulSoup(html).find(id="descript")
-    # description = soup.get_text(soup.find(id="descript"))
     description = soup.get_text()
+    
     return description
 
 
 # looks up the amazon game
-# returns a single product
+# returns a single product object
 def fetch_from_amazon(game):
     title = ''.join(('NES ', game.title))
     
@@ -95,6 +102,8 @@ def fetch_from_amazon(game):
     try:
         products = amazon.search_n(1, Keywords=title, Condition='Used', SearchIndex = 'VideoGames')
         return amazon.lookup(ItemId=products[0].asin, Condition='Used')
+    
+    # if above fails the template handles the error
     except:
         pass
 
