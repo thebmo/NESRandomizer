@@ -44,13 +44,37 @@ def fetch_game_videos(game):
 def fetch_game_html(game):
     title = game.title
     print title
-    if re.search(', \w* \w*\'s', title, flags=re.IGNORECASE):
+    
+    # possessive games and ', the' games
+    if re.search('\'s$', title, flags=re.IGNORECASE) or re.search(', \w*$', title, flags=re.IGNORECASE):
         title = title.split(', ')
         title = ' '.join((title[1], title[0]))
-
-    title = title.replace(':','').replace('IV', '4').replace('III','3').replace('II','2').replace('\'','').replace('\&','and').replace(' - ', ' ').lower()
     
-    #corner cases
+    # if re.search(', the .*', title, flags=re.IGNORECASE):
+    if re.search(', the', title, flags=re.IGNORECASE):
+
+        if ':' in title:
+            temp1 = title.split(':')
+            temp2 = temp1[0].split(', ')
+            title = temp2[1] + '-' + temp2[0] + temp1[1]
+        else:
+            title = title.split(',')
+            title = ' '.join((title[1], title[0])).strip(' ')
+
+
+    title = title.replace(':','').replace('IV', '4').replace('III','3').replace('II','2').replace('\'','').replace('\&','and').lower()
+    
+    # corner cases
+    # A boy and his blob
+    if 'blob' in title:
+        title = 'a-boy-and-his-blob'
+    # DinoRiki
+    if 'riki' in title:
+        title = 'adventures-of-dino-riki'
+        
+    # 3-D Battles of World Runner, The
+    if '3-d' in title:
+        title = '3d-battles-of-worldrunner'
     # Thrilla's Surfari - T and C II
     if 'thrillas' in title:
         title = 'tc-surf-designs-thrillas-surfari'
@@ -59,25 +83,29 @@ def fetch_game_html(game):
     if 't and c' in title:
         title = 't-and-c-surf-designs'
     
-    if ', disneys' in title:
+    if 'chip' in title:
         title = title.split(', ')
         title = ' '.join((title[1], title[0]))
-    if ', the' in title:
-        title = 'the ' + title.replace(', the', '')
+    
+    # Ghost Lion
     if ', legend of' in title:
         title = 'the-legend-of ' + title.replace(', legend of', '')
+    
+    # stupid fisher price games
     if 'fisher-price' in title:
-            if '- fisher-price' in title:
-                title = title.split(' - ')
-                title = title[1] + ' ' + title[0]
-            else:
-                title = title.split(', ')
-                title = ' '.join((title[1], title[0]))
+
+        if ' - fisher-price' in title:
+            title = title.split(' - ')
+            title = ' '.join((title[1], title[0]))
+
+        elif ', fisher-price' in title:
+            title = title.split(', ')
+            title = ' '.join((title[1], title[0]))
     
     # replaces the rest
-    title = title.replace(',','').replace(' ', '-').replace('.', '').replace('!', '')
+    title = title.replace(',','').replace(' ', '-').replace('.', '').replace('!', '').replace(' / ', '-').replace('/', '-').replace('(', '').replace(')', '').strip(' ')
     
-    # for testting
+    # for testing
     print title
     
     link = 'http://nesguide.com/games/' + title
