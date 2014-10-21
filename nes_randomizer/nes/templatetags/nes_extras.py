@@ -62,56 +62,101 @@ def fetch_game_html(game):
             title = ' '.join((title[1], title[0])).strip(' ')
 
 
-    title = title.replace(':','').replace('IV', '4').replace('III','3').replace('II','2').replace('\'','').replace('\&','and').lower()
+    title = title.replace(':','').replace('IV', '4').replace('III','3').replace('II','2').replace('\'','').replace('\&','and').replace(' / ', '-').lower()
     
     # for stupid roman numeral V
     title = re.sub('\sv$', ' 5', title)
+    title = re.sub('\sv?\s', ' 5 ', title)
     
     # corner cases
-    if 'pugsley' in title:
+    # top player tennis
+    if 'top player' in title:
+        title = 'evert-and-lendl-top-players-tennis'
+    # iron sword
+    elif title == 'wizards and warriors 2 ironsword':
+        title = 'ironsword-wizards-and-warriors-2'
+    # wizardry 2
+    elif title == 'wizardry knight of diamonds':
+        title = 'wizardry-2-knight-of-diamonds'
+
+    # tmnt games
+    elif 'tmnt' in title:
+        title = title.replace('tmnt', 'teenage mutant ninja turtles')
+        # tmnt III
+        if '3' in title:
+            title = title.replace('the ', '')
+
+    # terminator 2 typo
+    elif 'terminator' in title:
+        title = title.replace('judgement', 'judgment')
+    # super mario bros 2 lost levels
+    elif title == 'super mario bros. 2 - the lost levels':
+        title = 'super-mario-bros-2-japanese'
+    
+    # rusn'n attaack
+    elif 'rushn' in title:
+        title = title.replace('n', '-n')
+    
+    # the adventures of rocky and bullwinkle
+    elif 'rocky' in title:
+        title = 'the adventures of ' + title
+    
+    # Rad Racket: Deluxe Tennis II
+    elif title == 'rad racket deluxe tennis 2':
+        title = 'rad racket deluxe tennis ii'
+    
+    #Q*bert
+    elif title == 'q*bert':
+        title = 'qbert'
+    # mr dream's punchout
+    elif title == 'punch-out!!':
+        title += '-mr-dream'
+    
+    # puglsleys scavenger hunt
+    elif 'pugsley' in title:
         title = 'the addams family ' + title
     
     # mario bros. original
-    if title == 'mario bros.':
+    elif title == 'mario bros.':
         title += ' original'
 
     # NES play action footbal
-    if title == 'play action football':
+    elif title == 'play action football':
         title = 'nes ' + title
 
     # a nightmare on elm street
-    if title == 'nightmare on elm street':
+    elif title == 'nightmare on elm street':
         title = 'a ' + title
 
     # A boy and his blob
-    if 'blob' in title:
+    elif 'blob' in title:
         title = 'a-boy-and-his-blob'
     # DinoRiki
-    if 'riki' in title:
+    elif 'riki' in title:
         title = 'adventures-of-dino-riki'
         
     # 3-D Battles of World Runner, The
-    if '3-d' in title:
+    elif '3-d' in title:
         title = '3d-battles-of-worldrunner'
     # Thrilla's Surfari - T and C II
-    if 'thrillas' in title:
+    elif 'thrillas' in title:
         title = 'tc-surf-designs-thrillas-surfari'
     
     # T and C Surf Designs: Wood and Water Rage
-    if 't and c' in title:
+    elif 't and c' in title:
         title = 't-and-c-surf-designs'
 
     # chip n dale 1/2
-    if 'chip' in title:
+    elif 'chip' in title:
         title = title.split(', ')
         title = ' '.join((title[1], title[0]))
     
     # Ghost Lion
-    if ', legend of' in title:
+    elif ', legend of' in title:
         title = 'the-legend-of ' + title.replace(', legend of', '')
     
     # stupid fisher price games
-    if 'fisher-price' in title:
+    elif 'fisher-price' in title:
 
         if ' - fisher-price' in title:
             title = title.split(' - ')
@@ -122,20 +167,20 @@ def fetch_game_html(game):
             title = ' '.join((title[1], title[0]))
     
     # super jeopardy!
-    if 'jeopardy! super' in title:
+    elif 'jeopardy! super' in title:
         title = 'super-jeopardy'
 
     # the jungle book
-    if 'jungle' in title:
+    elif 'jungle' in title:
         title = 'disneys-the-jungle-book'
 
     # King of the Ring - WWF
-    if ' - wwf' in title:
+    elif ' - wwf' in title:
         title = title.split(' - ')
         title = ' '.join((title[1], title[0]))
 
     # replaces the rest
-    title = title.replace(',','').replace(' ', '-').replace('.', '').replace('!', '').replace(' / ', '-').replace('/', '-').replace('(', '').replace(')', '').replace('*', '-').strip(' ')
+    title = title.replace(',','').replace('.', '').replace('!', '').replace(' / ', '-').replace('/', '-').replace('(', '').replace(')', '').replace('*', '-').replace(' - ', '-').replace(' ', '-').strip(' ')
     
     # for testing
     print title

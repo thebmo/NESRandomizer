@@ -75,8 +75,10 @@
     <a href="{% url 'nes:random' %}" style='diplay:inline'><button>Reset</button></a>
     
 </td><td>
-    {% if game %}            
-        <a href='{{ game_url }}' target='_blank'>{{ game.title }}</a><br />
+    {% if game %}    
+        <a href = '{% url 'nes:details' game.id %}' target = '_blank'>
+        {{ game.title }}</a><br />
+        <a href='{{ game_url }}' target='_blank'>Google Search</a><br />
         {% if debug %}
             <h3>Game Info:</h3>
                 game id: {{ game.id }}<br/>
