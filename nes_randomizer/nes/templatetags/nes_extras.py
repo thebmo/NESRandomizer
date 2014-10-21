@@ -64,7 +64,25 @@ def fetch_game_html(game):
 
     title = title.replace(':','').replace('IV', '4').replace('III','3').replace('II','2').replace('\'','').replace('\&','and').lower()
     
+    # for stupid roman numeral V
+    title = re.sub('\sv$', ' 5', title)
+    
     # corner cases
+    if 'pugsley' in title:
+        title = 'the addams family ' + title
+    
+    # mario bros. original
+    if title == 'mario bros.':
+        title += ' original'
+
+    # NES play action footbal
+    if title == 'play action football':
+        title = 'nes ' + title
+
+    # a nightmare on elm street
+    if title == 'nightmare on elm street':
+        title = 'a ' + title
+
     # A boy and his blob
     if 'blob' in title:
         title = 'a-boy-and-his-blob'
@@ -82,7 +100,8 @@ def fetch_game_html(game):
     # T and C Surf Designs: Wood and Water Rage
     if 't and c' in title:
         title = 't-and-c-surf-designs'
-    
+
+    # chip n dale 1/2
     if 'chip' in title:
         title = title.split(', ')
         title = ' '.join((title[1], title[0]))
@@ -102,8 +121,21 @@ def fetch_game_html(game):
             title = title.split(', ')
             title = ' '.join((title[1], title[0]))
     
+    # super jeopardy!
+    if 'jeopardy! super' in title:
+        title = 'super-jeopardy'
+
+    # the jungle book
+    if 'jungle' in title:
+        title = 'disneys-the-jungle-book'
+
+    # King of the Ring - WWF
+    if ' - wwf' in title:
+        title = title.split(' - ')
+        title = ' '.join((title[1], title[0]))
+
     # replaces the rest
-    title = title.replace(',','').replace(' ', '-').replace('.', '').replace('!', '').replace(' / ', '-').replace('/', '-').replace('(', '').replace(')', '').strip(' ')
+    title = title.replace(',','').replace(' ', '-').replace('.', '').replace('!', '').replace(' / ', '-').replace('/', '-').replace('(', '').replace(')', '').replace('*', '-').strip(' ')
     
     # for testing
     print title
