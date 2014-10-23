@@ -23,20 +23,30 @@ def game_details(request, game_id):
 def search_games(request):
     template = 'nes/search_games.html'
     errors = []
+    
+    # the search box
     if request.POST:
         games = []
+
+        # title search
         G = Game.objects.filter(title__icontains = request.POST['q'])
         for g in G:
             if g not in games:
                 games.append(g)
+
+        # genre search
         G = Game.objects.filter(genre__icontains = request.POST['q'])
         for g in G:
             if g not in games:
                 games.append(g)
+
+        # publisher search
         G = Game.objects.filter(publisher__icontains = request.POST['q'])
         for g in G:
             if g not in games:
                 games.append(g) 
+        
+        # year search
         G = Game.objects.filter(year__icontains = request.POST['q'])
         for g in G:
             if g not in games:
@@ -44,20 +54,24 @@ def search_games(request):
         
         
         if not games:
-            errors.append('No games found')
+            errors.append('No games found that match this search.')
     else:    
         games = Game.objects.all()
     return render(request, template, { 'errors':errors, 'games':games })
-    
+
+
+# the index view    
 def index(request):
     template = 'nes/index.html'
     return render(request, template,)
 
+    
+# The random game generator view    
 def random_game(request):
     template = 'nes/random.html'
     errors = []
-    debug = True
-    # debug = False
+    # debug = True
+    debug = False
     
     if 'selection' in request.POST:       
         params = {        

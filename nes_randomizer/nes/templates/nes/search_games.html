@@ -5,19 +5,18 @@
 {% load nes_extras %}
 
 <br />
-
 <form name="Search NES" action="" method="post">
     {% csrf_token %}
     <input type="text" value="" name="q">
     <input type="submit" value ="Search">
     {% if errors %}
-        <font color='red'>
         {% for error in errors %}
-            {{ error }}
+            <br><br>{{ error }}
         {% endfor %}
         </font>
     {% endif %}
 </form>
+
 {% if games %}
     <div class="games">
         <table>

@@ -4,110 +4,110 @@
 <!-- loading stuff up here -->
 {% load nes_extras %}
 
-<h1>Random NES Game Selector</h1>
-<table>
-<tr><td>
-    <form name="Random NES" action="" method="post">
-        {% csrf_token %}
-        <fieldset style='width:500px'>
-        <legend>Selections</legend>
-            <input type="radio" name="selection" value="all" checked>All
-            {% if user.is_authenticated %}
-                <input type="radio" name="selection" value="owned" {% if selection == 'owned' %}checked{% endif %}>Owned
-                <input type="radio" name="selection" value="pick"{% if selection == 'pick' %}checked{% endif %}>Pick Some
-            {% else %}
-                &emsp;&emsp;&emsp;&emsp;&emsp;(More options here for registered users)
-            {% endif %}
-       </fieldset>
-        <br/>
-        
-        <fieldset style='width:500px'>
-        <legend>Beaten?</legend>
-            <input type="radio" name="beaten" value="both" checked>Both
-            {% if user.is_authenticated %}
-                <input type="radio" name="beaten" value="yes" {% if beaten == 'yes' %}checked{% endif %}>Yes
-                <input type="radio" name="beaten" value="no"{% if beaten == 'no' %}checked{% endif %}>No
-            {% else %}
-                &nbsp;&nbsp;&emsp;&emsp;&emsp;&emsp;(More options here for registered users)
-            {% endif %}
-        </fieldset>
-        <br />
-        
-        <fieldset style='width:500px'>
-        <legend>Genres</legend>
-            <table>
-                <tr><td>
-                <input type="checkbox" name="genre" value="Action" {% if 'Action' in genres %}checked{% endif %}>Action</td><td>
-                <input type="checkbox" name="genre" value="Adventure" {% if 'Adventure' in genres %}checked{% endif %}>Adventure</td><td>
-                <input type="checkbox" name="genre" value="Arcade" {% if 'Arcade' in genres %}checked{% endif %}>Arcade</td><td>
-                <input type="checkbox" name="genre" value="Board Game" {% if 'Board Game' in genres %}checked{% endif %}>Board Game</td></tr>
-                
-                <tr><td>
-                <input type="checkbox" name="genre" value="Educational" {% if 'Educational' in genres %}checked{% endif %}>Educational</td><td>
-                <input type="checkbox" name="genre" value="Fighting" {% if 'Fighting' in genres %}checked{% endif %}>Fighting</td><td>
-                <input type="checkbox" name="genre" value="Gambling" {% if 'Gambling' in genres %}checked{% endif %}>Gambling</td><td>
-                <input type="checkbox" name="genre" value="Game Show" {% if 'Game Show' in genres %}checked{% endif %}>Game Show</td></tr>
-                
-                <tr><td>
-                <input type="checkbox" name="genre" value="Light Gun" {% if 'Light Gun' in genres %}checked{% endif %}>Light Gun</td><td>
-                <input type="checkbox" name="genre" value="Pinball" {% if 'Pinball' in genres %}checked{% endif %}>Pinball</td><td>
-                <input type="checkbox" name="genre" value="Platformer" {% if 'Platformer' in genres %}checked{% endif %}>Platformer</td><td>
-                <input type="checkbox" name="genre" value="Power Glove" {% if 'Power Glove' in genres %}checked{% endif %}>Power Glove</td></tr>
-                
-                <tr><td>
-                <input type="checkbox" name="genre" value="Power Pad" {% if 'Power Pad' in genres %}checked{% endif %}>Power Pad</td><td>
-                <input type="checkbox" name="genre" value="Puzzle" {% if 'Puzzle' in genres %}checked{% endif %}>Puzzle</td><td>
-                <input type="checkbox" name="genre" value="RPG" {% if 'RPG' in genres %}checked{% endif %}>RPG</td><td>
-                <input type="checkbox" name="genre" value="Racing" {% if 'Racing' in genres %}checked{% endif %}>Racing</td></tr>
-                
-                <tr><td>
-                <input type="checkbox" name="genre" value="Shooter" {% if 'Shooter' in genres %}checked{% endif %}>Shooter</td><td>
-                <input type="checkbox" name="genre" value="Simulation" {% if 'Simulation' in genres %}checked{% endif %}>Simulation</td><td>
-                <input type="checkbox" name="genre" value="Sports" {% if 'Sports' in genres %}checked{% endif %}>Sports</td><td>
-                <input type="checkbox" name="genre" value="Strategy" {% if 'Strategy' in genres %}checked{% endif %}>Strategy</td></tr>
-            </table>
-        <!-- <input type="checkbox" name="genre" value=""> -->
-        </fieldset>
-        <br />
-
-        <input type="submit" value ="Choose a Game">
-    </form>
-    <a href="{% url 'nes:random' %}" style='diplay:inline'><button>Reset</button></a>
-    
-</td><td>
-    {% if game %}    
-        <a href = '{% url 'nes:details' game.id %}' target = '_blank'>
-        {{ game.title }}</a><br />
-        <a href='{{ game_url }}' target='_blank'>Google Search</a><br />
-        {% if debug %}
-            <h3>Game Info:</h3>
-                game id: {{ game.id }}<br/>
-                game title: {{ game.title }}<br/>
-                game genre: {{ game.genre }}
-                
+<h1>Random NES Game Selector</h1>  
+<div class = "block" style= 'border-radius: 25px'>
+    <table>
+    <tr><td>
+        <form name="Random NES" action="" method="post">
+            {% csrf_token %}
+            <fieldset style='width:500px'>
+            <legend>Selections</legend>
+                <input type="radio" name="selection" value="all" checked>All
+                {% if user.is_authenticated %}
+                    <input type="radio" name="selection" value="owned" {% if selection == 'owned' %}checked{% endif %}>Owned
+                    <!-- <input type="radio" name="selection" value="pick"{% if selection == 'pick' %}checked{% endif %}>Pick Some -->
+                {% else %}
+                    &emsp;&emsp;&emsp;&emsp;&emsp;(More options here for registered users)
+                {% endif %}
+           </fieldset>
+            <br/>
             
-            <h3>options:</h3>
-                Selection: {{ selection }}<br/>
-                Beaten: {{ beaten }}<br/>
-                {% if genres %}
-                    <h3>Selected Genre{{genres|pluralize}}:</h3>
-                    {% for genre in genres %}
-                        {{ genre }}<br />
-                    {% endfor %}
-                {% endif %}    
-        {% endif %}    
-    {% endif %}
-    
-    {% if errors %}
-        <font color = 'red'>
-        {%  for error in errors %}
-            {{ error }}<br />
-        {% endfor %}
-        </font>
-    {% endif %}
-    <br/><br/>
-    
-</td></tr>
-</table>
+            <fieldset style='width:500px'>
+            <legend>Beaten?</legend>
+                <input type="radio" name="beaten" value="both" checked>Both
+                {% if user.is_authenticated %}
+                    <input type="radio" name="beaten" value="yes" {% if beaten == 'yes' %}checked{% endif %}>Yes
+                    <input type="radio" name="beaten" value="no"{% if beaten == 'no' %}checked{% endif %}>No
+                {% else %}
+                    &nbsp;&nbsp;&emsp;&emsp;&emsp;&emsp;(More options here for registered users)
+                {% endif %}
+            </fieldset>
+            <br />
+            
+            <fieldset style='width:500px'>
+            <legend>Genres</legend>
+                <table>
+                    <tr><td>
+                    <input type="checkbox" name="genre" value="Action" {% if 'Action' in genres %}checked{% endif %}>Action</td><td>
+                    <input type="checkbox" name="genre" value="Adventure" {% if 'Adventure' in genres %}checked{% endif %}>Adventure</td><td>
+                    <input type="checkbox" name="genre" value="Arcade" {% if 'Arcade' in genres %}checked{% endif %}>Arcade</td><td>
+                    <input type="checkbox" name="genre" value="Board Game" {% if 'Board Game' in genres %}checked{% endif %}>Board Game</td></tr>
+                    
+                    <tr><td>
+                    <input type="checkbox" name="genre" value="Educational" {% if 'Educational' in genres %}checked{% endif %}>Educational</td><td>
+                    <input type="checkbox" name="genre" value="Fighting" {% if 'Fighting' in genres %}checked{% endif %}>Fighting</td><td>
+                    <input type="checkbox" name="genre" value="Gambling" {% if 'Gambling' in genres %}checked{% endif %}>Gambling</td><td>
+                    <input type="checkbox" name="genre" value="Game Show" {% if 'Game Show' in genres %}checked{% endif %}>Game Show</td></tr>
+                    
+                    <tr><td>
+                    <input type="checkbox" name="genre" value="Light Gun" {% if 'Light Gun' in genres %}checked{% endif %}>Light Gun</td><td>
+                    <input type="checkbox" name="genre" value="Pinball" {% if 'Pinball' in genres %}checked{% endif %}>Pinball</td><td>
+                    <input type="checkbox" name="genre" value="Platformer" {% if 'Platformer' in genres %}checked{% endif %}>Platformer</td><td>
+                    <input type="checkbox" name="genre" value="Power Glove" {% if 'Power Glove' in genres %}checked{% endif %}>Power Glove</td></tr>
+                    
+                    <tr><td>
+                    <input type="checkbox" name="genre" value="Power Pad" {% if 'Power Pad' in genres %}checked{% endif %}>Power Pad</td><td>
+                    <input type="checkbox" name="genre" value="Puzzle" {% if 'Puzzle' in genres %}checked{% endif %}>Puzzle</td><td>
+                    <input type="checkbox" name="genre" value="RPG" {% if 'RPG' in genres %}checked{% endif %}>RPG</td><td>
+                    <input type="checkbox" name="genre" value="Racing" {% if 'Racing' in genres %}checked{% endif %}>Racing</td></tr>
+                    
+                    <tr><td>
+                    <input type="checkbox" name="genre" value="Shooter" {% if 'Shooter' in genres %}checked{% endif %}>Shooter</td><td>
+                    <input type="checkbox" name="genre" value="Simulation" {% if 'Simulation' in genres %}checked{% endif %}>Simulation</td><td>
+                    <input type="checkbox" name="genre" value="Sports" {% if 'Sports' in genres %}checked{% endif %}>Sports</td><td>
+                    <input type="checkbox" name="genre" value="Strategy" {% if 'Strategy' in genres %}checked{% endif %}>Strategy</td></tr>
+                </table>
+            <!-- <input type="checkbox" name="genre" value=""> -->
+            </fieldset>
+            <br />
 
+            <input type="submit" value ="Choose a Game">
+        </form>
+        <a href="{% url 'nes:random' %}" style='diplay:inline'><button>Reset</button></a>
+        
+    </td><td bgcolor='black'>
+        {% if game %}    
+            <a href = '{% url 'nes:details' game.id %}' target = '_blank'>
+            {{ game.title }}</a><br /><br />
+            <!-- <a href='{{ game_url }}' target='_blank'>Google Search</a><br /> -->
+            {% if debug %}
+                <h3>Game Info:</h3>
+                    game id: {{ game.id }}<br/>
+                    game title: {{ game.title }}<br/>
+                    game genre: {{ game.genre }}
+                    
+                
+                <h3>options:</h3>
+                    Selection: {{ selection }}<br/>
+                    Beaten: {{ beaten }}<br/>
+                    {% if genres %}
+                        <h3>Selected Genre{{genres|pluralize}}:</h3>
+                        {% for genre in genres %}
+                            {{ genre }}<br />
+                        {% endfor %}
+                    {% endif %}    
+            {% endif %}    
+        {% endif %}
+        
+        {% if errors %}
+            <font color = 'red'>
+            {%  for error in errors %}
+                {{ error }}<br />
+            {% endfor %}
+            </font>
+        {% endif %}
+        <br/><br/>
+    </td></tr>
+    </table>
+</div>
 {% endblock %}

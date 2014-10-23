@@ -10,6 +10,10 @@ a {
 a:hover {
     color: white;
     }
+a .right {
+    float: right;
+    display: inline-block;
+    }
 div .wrapper {
     height: auto;
     width: auto;
