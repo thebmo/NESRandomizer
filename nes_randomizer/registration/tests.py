@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
-from nes.models import BeatenGame, OwnedGame
+# from nes.models import BeatenGame, OwnedGame
 
 
 # Create your tests here.
@@ -18,6 +18,7 @@ class RegistrationTests(TestCase):
         
         #creates the user
         user = User.objects.create_user(username, email, password)
+
         assert User.objects.get(pk=1) == user
         
     # def found_games(games):

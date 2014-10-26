@@ -216,13 +216,16 @@ def fetch_from_amazon(game):
 def fetch_games(request):
     return Game.objects.all()
 
+
 # fetches owned games for the user
 def fetch_owned(request):
     return OwnedGame.objects.filter(user_id=request.user.id)
 
+
 # fetches beaten games for the user
 def fetch_beaten(request):
     return BeatenGame.objects.filter(user_id=request.user.id)
+
 
 # returns a google search link to be used in templates
 def create_google_url(game):
