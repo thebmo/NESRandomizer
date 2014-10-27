@@ -9,9 +9,9 @@ from .templatetags import registration_extras as REG
 # Create your views here.
 
 def delete_user(request):
-
-    REG.delete_user(request.user)
-    # return redirect('index',)
+    user = User.objects.get(id=request.user.id)
+    REG.delete_user(user)
+    return redirect('index',)
     
 
 # user registration page

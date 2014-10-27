@@ -3,6 +3,6 @@ from . import views
 
 urlpatterns = patterns('',
     url(r'^$', views.register, name='register'),
-    url(r'^$', views.delete_user, name='delete'),
+    url(r'^delete/', views.delete_user, name='delete'),
     )
 
