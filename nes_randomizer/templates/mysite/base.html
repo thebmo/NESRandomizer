@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     {% load staticfiles %}
+    <link rel="icon" type = "image/x-icon" href="{% static 'mysite/images/favicon.ico' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'mysite/styles.css' %}" />
     <title>{% block title %}NES RANDOMIZER{% endblock %}</title>
 </head>
@@ -19,9 +20,8 @@
                         <a href="{% url 'nes:games' %}">NES</a> | 
                         <a href="{% url 'nes:random' %}">RANDOM</a> | 
                         {% if user.is_staff %}
-                            <a href="{% url 'polls:index' %}">POLLS</a> |
                             <a href="/admin/" target = '_blank'>ADMIN</a> |
-<!--                             <a href="{% url 'reg:delete' %}">DELETE</a> | -->
+                            <a href="{% url 'tools:index' %}">TOOLS</a> |
                         {% endif %}
                     </font>
                     

@@ -112,3 +112,14 @@ div .menu a:hover {
     }
     
 /* END MENU DIV STYLES     */
+
+
+/* TOOLS STYLES */
+.users td {
+    border: 1px solid black;
+    background: black;
+    padding-left: 5px;
+    padding-right: 5px;
+    }
+    
+/* END TOOLS STYLES */

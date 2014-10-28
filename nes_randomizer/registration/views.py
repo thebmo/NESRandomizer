@@ -4,16 +4,9 @@ from django.views import generic
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, logout, login
 from django.db import IntegrityError
-from .templatetags import registration_extras as REG
 
 # Create your views here.
-
-def delete_user(request):
-    user = User.objects.get(id=request.user.id)
-    REG.delete_user(user)
-    return redirect('index',)
-    
-
+   
 # user registration page
 def register(request):
     if request.user.is_authenticated():

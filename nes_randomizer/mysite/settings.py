@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'nes',
     'registration',
     'profiles',
+    'tools',
 )
 
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
