@@ -35,7 +35,5 @@ def register(request):
             user = authenticate(username=username, password=password)
             login(request, user)
             return redirect('index',)
-            
-    
     
     return render(request, 'registration/register.html',)

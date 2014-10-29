@@ -12,3 +12,4 @@ nes_randomizer/db.sqlite3
 nes_randomizer/mysite/static/*
 nes_randomizer/nes/templatetags/nes_extras.pyc
 *.sqlite3
+nes_randomizer/db.sqlite3
