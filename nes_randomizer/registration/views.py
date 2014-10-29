@@ -18,8 +18,10 @@ def register(request):
         email=request.POST['email']
         first_name=''
         last_name=''
+
         if 'first_name' in request.POST:
             first_name=request.POST['first_name']
+
         if 'last_name' in request.POST:
             last_name=request.POST['last_name']
         
@@ -35,5 +37,5 @@ def register(request):
             user = authenticate(username=username, password=password)
             login(request, user)
             return redirect('index',)
-    
+
     return render(request, 'registration/register.html',)
