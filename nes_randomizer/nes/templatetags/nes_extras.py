@@ -265,13 +265,6 @@ def filter_games(all_games, params, games_owned, beaten_games):
     # removes games that don't match the genre if selected
     if params['genres']:
         
-        # # start testing crap
-        # print '\nPARAMS:'
-        # for param in params['genres']:
-            # print param
-        # print '\n'
-        # # end testing crap
-        
         for game in all_games:
             if game in games and game.genre not in params['genres']:
                 games.remove(game)
@@ -283,7 +276,7 @@ def filter_games(all_games, params, games_owned, beaten_games):
         # if params['beaten'] == 'yes':
         for game in all_games:
 
-            # beaten filter = true, remove games that are not on list
+            # beaten filter = true, remove games that are not on beaten list
             if beaten:
                 beat = False
                 for beaten_game in beaten_games:
@@ -292,7 +285,7 @@ def filter_games(all_games, params, games_owned, beaten_games):
                 if game in games and not beat:
                     games.remove(game)
                     
-            # beaten filter = false, remove games taht are on list
+            # beaten filter = false, remove games that are on beaten list
             if not beaten:
                 beat = False
                 for beaten_game in beaten_games:
