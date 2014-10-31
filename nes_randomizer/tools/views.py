@@ -2,7 +2,21 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from . templatetags import tools_extras as TOOLS
+from nes.templatetags import nes_extras as NES
+from nes.models import *
+
 # Create your views here.
+
+# loads a user's profile
+def lookup_user(request, user_id):
+    print 'test'
+    template = 'tools/profile.html'
+    user = User.objects.get(pk=user_id)
+    beaten = NES.fetch_beaten(user)
+    owned = NES.fetch_owned(user)
+    for beat in beaten:
+        print beat.title
+    return render(request, template, { 'user':user, 'beaten':beaten, 'owned':owned })
 
 
 # index of performable actions

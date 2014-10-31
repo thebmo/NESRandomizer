@@ -55,31 +55,11 @@ def view_profile(request):
     
     email= request.user.email
     update_email= False
-    # if request.POST['email'].lower() != email.lower():
-        # update_email = True
     
     # game info
-    owned_ids=[]
-    owned=[]
-    for own in NES.fetch_owned(request):
-        owned_ids.append(own.game_id)
-        
-    beaten_ids=[]
-    beaten=[]
-    for beat in NES.fetch_beaten(request):
-        beaten_ids.append(beat.game_id)
-    
-    games = NES.fetch_games(request)
-    
-    # populates both lists
-    for game in games:
-        if game.id in owned_ids:
-            owned.append(game)
-            
-    for game in games:
-        if game.id in beaten_ids:
-            beaten.append(game)
-    
+    owned = NES.fetch_owned(request.user)
+    beaten = NES.fetch_beaten(request.user)
+
     return render(request, template, {'email':email, 'owned':owned, 'beaten':beaten})
 
 # handles the editing of beaten or owned games in the profile
@@ -129,13 +109,13 @@ def edit_games(request):
     # creates a list of just owned game ids
     mode_ids = []
     if mode == 'owned':
-        for game in NES.fetch_owned(request):
+        for game in NES.fetch_owned(request.user):
             mode_ids.append(game.game_id)
     else:   
-        for game in NES.fetch_beaten(request):
+        for game in NES.fetch_beaten(request.user):
             mode_ids.append(game.game_id)
     
-    all_games = NES.fetch_games(request)
+    all_games = NES.fetch_games()
     games = []
     mode_games = []
     

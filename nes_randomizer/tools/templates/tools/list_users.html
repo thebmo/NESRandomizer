@@ -7,9 +7,9 @@
             <tr><td>ID</td><td>username</td><td>delete</td></tr>
             {% for  user in users %}
                 <tr><td><center>{{ user.id }}<center></td>
-                <td>{{ user.username }}</td>
+                <td><a href="{% url 'tools:profile' user.id %}">{{ user.username }}</a></td>
                 <td><center>
-                <a href="{%url 'tools:delete' user.id %}">X</center></td></tr>
+                <a href="{% url 'tools:delete' user.id %}">X</center></td></tr>
             {% endfor %}
         </table>
     </div>

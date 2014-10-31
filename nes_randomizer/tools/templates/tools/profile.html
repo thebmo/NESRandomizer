@@ -1,0 +1,39 @@
+{% extends "mysite/base.html" %}
+{% block content %}
+
+<h1>{{ user.username }}'s profile information!</h1><br>
+Username: {{ user.username }}<br />
+
+<table>
+<tr><td style="padding-right:100px"><strong>Games Owned {% if owned %}: {{ owned|length }}{% endif %}</strong>
+</td><td><strong>Games Beaten {% if beaten %}: {{ beaten|length }}{% endif %}</strong></td></tr>
+
+<tr><td>
+{% if owned %}
+    <select size=10 multiple style="width:250px">
+    {% for own in owned %}
+       <font color = 'black'><option value='{{ own.id }}'>{{ own.title }}</option></font>
+    {% endfor %}
+    </select>
+{% endif %}
+
+</td><td>
+{% if beaten %}
+    <select size=10 multiple style="width:250px">
+    {% for beat in beaten %}
+       <option value='{{ beat.id }}'>{{ beat.title }}</option>
+    {% endfor %}
+    </select>
+{% endif %}
+</td></tr>
+</table>
+
+{% if notes %}
+    {% for not in notes %}
+        {{ note }}<br/>
+    {% endfor %}
+{% endif %}
+
+
+
+{% endblock %}

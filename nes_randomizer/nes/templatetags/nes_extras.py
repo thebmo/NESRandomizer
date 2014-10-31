@@ -213,18 +213,41 @@ def fetch_from_amazon(game):
         pass
 
 # fetches all games in the DB
-def fetch_games(request):
+def fetch_games():
     return Game.objects.all()
 
 
 # fetches owned games for the user
-def fetch_owned(request):
-    return OwnedGame.objects.filter(user_id=request.user.id)
+def fetch_owned(user):
+    owned_games = []
+    owned_ids = []
+    owned = OwnedGame.objects.filter(user_id=user.id)
+
+    for own in owned:
+        owned_ids.append(own.game_id)
+
+    for game in Game.objects.all():
+        if game.id in owned_ids:
+            owned_games.append(game)
+
+    return owned_games
+    
 
 
 # fetches beaten games for the user
-def fetch_beaten(request):
-    return BeatenGame.objects.filter(user_id=request.user.id)
+def fetch_beaten(user):
+    beaten_games = []
+    beaten_ids = []
+    beaten = BeatenGame.objects.filter(user_id=user.id)
+    
+    for beat in beaten:
+        beaten_ids.append(beat.game_id)
+
+    for game in Game.objects.all():
+        if game.id in beaten_ids:
+            beaten_games.append(game)
+
+    return beaten_games
 
 
 # returns a google search link to be used in templates
@@ -232,6 +255,7 @@ def create_google_url(game):
     return (''.join(('https://www.google.com/#q=nes+', str(game.title).replace(' ','+'))))
 
 # creates and returns a string for searching api's
+# ex: 'nes+mega+man+2'
 def create_search_string(game):
     return (''.join(('nes+', str(game.title).replace(' ','+'))))
     
