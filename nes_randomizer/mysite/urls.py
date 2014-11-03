@@ -17,4 +17,6 @@ urlpatterns = patterns('',
     url(r'^profiles/', include('profiles.urls', namespace='prof')),
     url(r'^tools/', include('tools.urls', namespace='tools')),
     url(r'^admin/', include(admin.site.urls), name='admin'),
+    url(r'^.', views.fourohfour, name='404'),
+    
 )

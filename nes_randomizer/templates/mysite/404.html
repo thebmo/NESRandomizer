@@ -1,0 +1,15 @@
+{% extends "mysite/base.html" %}
+{% block content %}
+
+<center><h1>error 404!</h1></center>
+{% load staticfiles %}
+{% if error_message %}<p><strong>{{ error_message }} </strong</p>{% endif %}
+<div class = "block" id = "main">
+<img src="{% static 'mysite/images/sorry.png' %}" width=100%>
+
+    
+</div>
+
+
+
+{% endblock %}

@@ -10,6 +10,10 @@ from nes.models import Game
 
 # class IndexView(generic.ListView):
     # template_name = 'mysite/index.html'
+# 404 view
+def fourohfour(request):
+    template = 'mysite/404.html'
+    return render(request, template, )
 
 # clear this view after
 def import_games(request):
