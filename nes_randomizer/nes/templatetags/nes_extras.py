@@ -273,50 +273,50 @@ def create_search_string(game):
 def filter_games(all_games, params, games_owned, beaten_games):
     
     games = list(all_games)
+    
+    # master loop
+    for game in all_games:
+        remove = False # master remove variable
 
-    # removes games that user does not own if an argument
-    if params['selection'] == 'owned':
-        
-        for game in all_games:
+        # removes games that user does not own if an argument
+        if params['selection'] == 'owned':
+            
             not_owned = True
             for owned in games_owned:
                 if game.id == owned.game_id:
                     not_owned = False
-                    break
             if not_owned:
-                games.remove(game)
+                remove = True
 
-    # removes games that don't match the genre if selected
-    if params['genres']:
-        
-        for game in all_games:
-            if game in games and game.genre not in params['genres']:
-                games.remove(game)
-                # print 'removing: %s' % game.title
     
-    # checks if user set the beaten filter
-    if params['beaten'] != 'both':
-        beaten = (True if params['beaten']  == 'yes' else False)
-        # if params['beaten'] == 'yes':
-        for game in all_games:
+        # removes games that don't match the genre if selected
+        if params['genres']:
 
-            # beaten filter = true, remove games that are not on beaten list
-            if beaten:
-                beat = False
+            if game.genre not in params['genres']:
+                remove = True
+           
+        # checks if user set the beaten filter
+        if params['beaten'] != 'both':
+            
+            # Beaten = 'Yes' in the random form
+            if params['beaten'] == 'yes':
+                beaten = False
                 for beaten_game in beaten_games:
                     if game.id == beaten_game.game_id:
-                        beat = True
-                if game in games and not beat:
-                    games.remove(game)
-                    
-            # beaten filter = false, remove games that are on beaten list
-            if not beaten:
-                beat = False
+                        beaten = True
+                if not beaten:
+                    remove = True
+                        
+                        
+            # Beaten = 'Yes' in the random form
+            elif params['beaten'] == 'no':
                 for beaten_game in beaten_games:
-                    if game in games and game.id == beaten_game.game_id:
-                        games.remove(game)
+                    if game.id == beaten_game.game_id:
+                        remove = True
+                        break
                 
-    
-    
+        if remove:
+            games.remove(game)
+
     return games
 # end filter_games() #
