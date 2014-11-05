@@ -71,7 +71,7 @@ def edit_games(request):
     template = 'profiles/edit_games.html'
     
     
-    print "path: %s" % request.path
+    # sets editing mode owned/beaten
     if 'owned_games' in request.path:
         mode = 'owned'
         title = ['Edit Your Owned Games', 'Unowned', 'Owned']
@@ -107,23 +107,21 @@ def edit_games(request):
     
     
     # creates a list of just owned game ids
-    mode_ids = []
     if mode == 'owned':
-        for game in NES.fetch_owned(request.user):
-            mode_ids.append(game.game_id)
-    else:   
-        for game in NES.fetch_beaten(request.user):
-            mode_ids.append(game.game_id)
+        mode_games = NES.fetch_owned(request.user)
+        # for game in NES.fetch_owned(request.user):
+            # mode_ids.append(game.game_id)
+    else:
+        mode_games = NES.fetch_beaten(request.user)
+        # for game in NES.fetch_beaten(request.user):
+            # mode_ids.append(game.game_id)
     
     all_games = NES.fetch_games()
     games = []
-    mode_games = []
     
-    # poplulates the two lists
+    # # poplulates the two lists
     for game in all_games:
-        if game.id in mode_ids:
-            mode_games.append(game)
-        else:
+        if game not in mode_games:
             games.append(game)
 
     return render(request, template,{'title':title, 'games':games, 'mode_games':mode_games})
