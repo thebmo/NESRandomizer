@@ -212,6 +212,7 @@ def fetch_from_amazon(game):
     except:
         pass
 
+
 # fetches all games in the DB
 def fetch_games():
     return Game.objects.all()
@@ -253,6 +254,7 @@ def fetch_beaten(user):
 # returns a google search link to be used in templates
 def create_google_url(game):
     return (''.join(('https://www.google.com/#q=nes+', str(game.title).replace(' ','+'))))
+
 
 # creates and returns a string for searching api's
 # ex: 'nes+mega+man+2'
