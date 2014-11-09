@@ -6,34 +6,37 @@ from django.contrib.auth import authenticate, logout, login
 from django.db import IntegrityError
 
 # Create your views here.
-   
+
+
 # user registration page
 def register(request):
     if request.user.is_authenticated():
         return redirect('index',)
-    error=''
+    error = ''
     if 'username' in request.POST:
-        username=request.POST['username']
-        password=request.POST['password']
-        email=request.POST['email']
-        first_name=''
-        last_name=''
+        username = request.POST['username']
+        password = request.POST['password']
+        email = request.POST['email']
+        first_name = ''
+        last_name = ''
 
         if 'first_name' in request.POST:
-            first_name=request.POST['first_name']
+            first_name = request.POST['first_name']
 
         if 'last_name' in request.POST:
-            last_name=request.POST['last_name']
-        
+            last_name = request.POST['last_name']
+
         # checks if username or email already taken
-        if User.objects.filter(username__iexact = username):
-            error='Username \'%s\' unavailable.' % username
-            return render(request, 'registration/register.html', {'error':error})
-        elif email and User.objects.filter(email__iexact = email):
-            error='Email \'%s\' already in use.' % email
-            return render(request, 'registration/register.html', {'error':error})
+        if User.objects.filter(username__iexact=username):
+            error = 'Username \'%s\' unavailable.' % username
+            return render(request, 'registration/register.html', {'error': error})
+
+        elif email and User.objects.filter(email__iexact=email):
+            error = 'Email \'%s\' already in use.' % email
+            return render(request, 'registration/register.html', {'error': error})
+
         else:
-            user= User.objects.create_user(username, email, password)
+            user = User.objects.create_user(username, email, password)
             user = authenticate(username=username, password=password)
             login(request, user)
             return redirect('index',)
