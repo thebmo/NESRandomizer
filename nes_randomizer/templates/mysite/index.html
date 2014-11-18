@@ -14,11 +14,26 @@
     <p>
         You can maintain your owned and beaten titles via the Profile link int he top right of the menu once you are are registered. Please send any found bugs or suggestions to <strong>NESRandomizer@gmail.com</strong> so that I can take a look. Please note that this site is still under heavy development.<br><br>
         
-        <font color = "red">-Bmo</font.
+        <font color = "red">-Bmo</font>
     </p>
     
 </div>
-
+<br>
+<div class = "block" id = "main">
+    
+    <table width=100%>
+    <tr><td>Most Owned Games</td><td>Most Beaten Games</td></tr>
+    <tr><td align=left>
+        {% for owned in most_owned %}
+            {{ owned.1 }}| <a href = '{% url 'nes:details' owned.2 %}' target = '_blank'>{{ owned.0 }}</a><br/>
+        {% endfor %}
+    </td>
+    <td align=right>
+        {% for beaten in most_beaten %}
+            <a href = '{% url 'nes:details' beaten.2 %}' target = '_blank'>{{ beaten.0 }}</a> | {{ beaten.1 }}<br/>
+        {% endfor %}
+    </td></tr>
+</div>
 
 
 <!-- {% if not user.is_authenticated %}

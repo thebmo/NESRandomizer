@@ -6,6 +6,7 @@ from django.views import generic
 from django.contrib.auth import authenticate, logout, login
 
 from nes.models import Game
+from nes.templatetags import nes_extras as NES
 
 
 # class IndexView(generic.ListView):
@@ -28,13 +29,15 @@ def import_games(request):
     return redirect('profiles/view_profile.html')
     
 def index(request):
+    most_owned = NES.fetch_most_owned()
+    most_beaten = NES.fetch_most_beaten()
     user = authenticate(username='', password='')
     if user is not None:
         # verifies user
         if user.is_active:
-           return render(request, 'mysite/index.html', {'user':user})
+           return render(request, 'mysite/index.html', {'user':user, 'most_owned': most_owned, 'most_beaten': most_beaten })
         
-    return render(request, 'mysite/index.html',)
+    return render(request, 'mysite/index.html', {'most_owned': most_owned, 'most_beaten': most_beaten})
 
 def login_view(request):
     

@@ -60,6 +60,7 @@ def search_games(request):
 # the index view
 def index(request):
     template = 'nes/index.html'
+
     return render(request, template,)
 
 
