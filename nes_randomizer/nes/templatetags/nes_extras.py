@@ -25,7 +25,7 @@ def fetch_most_beaten(count=10):
     beaten = BeatenGame.objects.all()
 
     for beat in beaten:
-        if beat.game_id not in beaten:
+        if str(beat.game_id) not in total_beaten:
             total_beaten[str(beat.game_id)] = 1
         else:
             total_beaten[str(beat.game_id)] += 1
@@ -49,7 +49,7 @@ def fetch_most_owned(count=10):
     owned = OwnedGame.objects.all()
 
     for own in owned:
-        if own.game_id not in owned:
+        if str(own.game_id) not in total_owned:
             total_owned[str(own.game_id)] = 1
         else:
             total_owned[str(own.game_id)] += 1
