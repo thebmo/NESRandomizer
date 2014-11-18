@@ -22,7 +22,7 @@
 <div class = "block" id = "main">
     
     <table width=100%>
-    <tr><td>Most Owned Games</td><td>Most Beaten Games</td></tr>
+    <tr><td>Most Owned Games</td><td align=right>Most Beaten Games</td></tr>
     <tr><td align=left>
         {% for owned in most_owned %}
             {{ owned.1 }}| <a href = '{% url 'nes:details' owned.2 %}' target = '_blank'>{{ owned.0 }}</a><br/>
