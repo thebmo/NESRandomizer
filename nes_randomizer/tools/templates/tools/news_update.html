@@ -1,0 +1,14 @@
+{% extends "mysite/base.html" %}
+{% block content %}
+<h1>New Update Post</h1>
+<div class="users">
+    <form action="" method="POST">
+        {% csrf_token %}
+        {% for field in news_form %}
+            {{ field.label }}: {{ field }}<br>
+        {% endfor %}
+        
+        <input id="save_post" type="submit" value="Post!">
+</div>
+
+{% endblock %}

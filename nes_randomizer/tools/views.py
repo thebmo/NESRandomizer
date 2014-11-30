@@ -4,8 +4,15 @@ from django.contrib.auth.models import User
 from . templatetags import tools_extras as TOOLS
 from nes.templatetags import nes_extras as NES
 from nes.models import *
+from news.models import NewsPost
+from news import forms as NEWS
 
 # Create your views here.
+
+def new_post(request):
+    template = 'tools/news_update.html'
+    news_form = NEWS.NewsPostForm
+    return render( request, template, {'news_form': news_form})
 
 # loads a user's profile
 def lookup_user(request, user_id):
