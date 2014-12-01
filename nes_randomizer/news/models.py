@@ -6,7 +6,7 @@ from django.utils import timezone
 
 class NewsPost(models.Model):
     title = models.CharField(max_length=200)
-    pub_date = models.DateTimeField('date published')
+    pub_date = models.DateTimeField(auto_now=False, auto_now_add=True)
     body = models.TextField(max_length=1000)
     
     def __unicode__(self):

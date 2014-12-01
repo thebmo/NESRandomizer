@@ -12,6 +12,12 @@ from news import forms as NEWS
 def new_post(request):
     template = 'tools/news_update.html'
     news_form = NEWS.NewsPostForm
+    
+    if request.POST:
+        if request.POST['title'] != '' and request.POST['body'] != '':
+            p = NewsPost(title=request.POST['title'], body=request.POST['body'])
+            p.save()
+    
     return render( request, template, {'news_form': news_form})
 
 # loads a user's profile
