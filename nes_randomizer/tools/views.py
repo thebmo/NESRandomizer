@@ -10,25 +10,28 @@ from news import forms as NEWS
 # Create your views here.
 
 def new_post(request):
-    template = 'tools/news_update.html'
-    news_form = NEWS.NewsPostForm
-    
-    if request.POST:
-        if request.POST['title'] != '' and request.POST['body'] != '':
-            p = NewsPost(title=request.POST['title'], body=request.POST['body'])
-            p.save()
-    
-    return render( request, template, {'news_form': news_form})
+    if request.user.is_staff:
+        template = 'tools/news_update.html'
+        news_form = NEWS.NewsPostForm
+        
+        if request.POST:
+            if request.POST['title'] != '' and request.POST['body'] != '':
+                p = NewsPost(title=request.POST['title'], body=request.POST['body'])
+                p.save()
+        
+        return render( request, template, {'news_form': news_form})
+
+    else:
+        return redirect('index')
+
 
 # loads a user's profile
 def lookup_user(request, user_id):
-    print 'test'
     template = 'tools/profile.html'
     user = User.objects.get(pk=user_id)
     beaten = NES.fetch_beaten(user)
     owned = NES.fetch_owned(user)
-    for beat in beaten:
-        print beat.title
+
     return render(request, template, { 'user':user, 'beaten':beaten, 'owned':owned })
 
 
@@ -37,6 +40,7 @@ def index(request):
     if request.user.is_staff:
         template = 'tools/index.html'
         return render(request, template,)
+
     else:
         return redirect('index')
 
@@ -60,5 +64,6 @@ def delete_user(request, user_id):
         TOOLS.delete_user(user)
         
         return redirect('/tools/users/')
+
     else:
         return redirect('index')

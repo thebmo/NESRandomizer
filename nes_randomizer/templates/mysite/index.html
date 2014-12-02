@@ -2,8 +2,8 @@
 {% block content %}
 
 <center><h1>Welcome to the NES Randomizer!</h1></center>
-{% if error_message %}<p><strong>{{ error_message }} </strong</p>{% endif %}
-<div class = "block" id = "main">
+{% if error_message %}<p><strong>{{ error_message }} </strong></p>{% endif %}
+<div class="block" id="main">
     <p>
         Welcome to the NES randomizer. This site was built entirely from scratch using Python's Django 1.6 framework. This site is aimed at users who wish to easily build, maintain, and beat their collection of NES titles. This project originally started out as a spreadsheet, then evolved into a basic python application, and finally a web app. This site is the creation of a labor of love as well as self-educational purposes. (I am self taught)
     </p>
@@ -19,7 +19,10 @@
     
 </div>
 <br>
-<div class = "block" id = "main">
+{% include "news/news_view.html" %}
+{% block news %} {% endblock news %}
+<br>
+<div class="block" id="main">
     
     <table width=100%>
     <tr><td>Most Owned Games</td><td align=right>Most Beaten Games</td></tr>
@@ -33,28 +36,12 @@
             <a href = '{% url 'nes:details' beaten.2 %}' target = '_blank'>{{ beaten.0 }}</a> | {{ beaten.1 }}<br/>
         {% endfor %}
     </td></tr>
+    </table>
 </div>
+<br>
 
 
-<!-- {% if not user.is_authenticated %}
-    <a href="{% url 'login' %}">Login</a> or <a href="{% url 'reg:register' %}">Register</a><br />
-{% else %}
-    <a href="{% url 'prof:view_profile' %}"> Edit Profile</a> | 
-    <a href="{% url 'logout' %}">Log Out</a><br />
-    {{user.username}}: {{user.id}}
-    {{user.first_name}}
-    {{user.last_name}}
-{% endif %}
+<br>
 
-<ul>
-    {% if user.is_staff %}
-    <li><a href="/admin/" target = "_blank">admin</a></li>
-    <li><a href="{% url 'import'%}">Import Games</a></li>
-    {% endif %}
-    <li><a href="{% url 'nes:index' %}">NES</a></li>
-    {% if user.is_staff %}
-        <li><a href="{% url 'polls:index' %}">POLLS</a></li>
-    {% endif %}
-</ul> -->
+{% endblock content%}
 
-{% endblock %}
