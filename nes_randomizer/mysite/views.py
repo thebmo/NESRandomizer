@@ -1,20 +1,21 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect
-# from django.core.urlresolvers import reverse
 from django.views import generic
-
 from django.contrib.auth import authenticate, logout, login
 
+from news.models import NewsPost
 from nes.models import Game
 from nes.templatetags import nes_extras as NES
 
 
 # class IndexView(generic.ListView):
     # template_name = 'mysite/index.html'
+
 # 404 view
 def fourohfour(request):
     template = 'mysite/404.html'
     return render(request, template, )
+
 
 # clear this view after
 def import_games(request):
@@ -27,17 +28,24 @@ def import_games(request):
                 region=game[3], format=game[4], license=game[5], genre=game[6])
             g.save()
     return redirect('profiles/view_profile.html')
-    
+
+
+# index view
 def index(request):
     most_owned = NES.fetch_most_owned()
     most_beaten = NES.fetch_most_beaten()
     user = authenticate(username='', password='')
+    post = []
+    if NewsPost.objects.all():
+        post = list(NewsPost.objects.all())[-1]
+    # post.reverse()
+    # post=post[0]
     if user is not None:
         # verifies user
         if user.is_active:
-           return render(request, 'mysite/index.html', {'user':user, 'most_owned': most_owned, 'most_beaten': most_beaten })
+           return render(request, 'mysite/index.html', {'user':user, 'most_owned': most_owned, 'most_beaten': most_beaten, 'post': post})
         
-    return render(request, 'mysite/index.html', {'most_owned': most_owned, 'most_beaten': most_beaten})
+    return render(request, 'mysite/index.html', {'most_owned': most_owned, 'most_beaten': most_beaten, 'post': post})
 
 def login_view(request):
     

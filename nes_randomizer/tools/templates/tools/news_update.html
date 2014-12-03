@@ -5,8 +5,10 @@
     <form action="" method="POST">
         {% csrf_token %}
         {% for field in news_form %}
+
             {{ field.label }}:
             <br>{{ field }}<br><br>
+
         {% endfor %}
         
         <input id="save_post" type="submit" value="Post!">

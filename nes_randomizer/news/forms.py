@@ -8,6 +8,7 @@ class NewsPostForm(forms.ModelForm):
 
     class Meta:
         model = NewsPost
+        fields = ['title', 'body']
     
     def __init__(self, *args, **kwargs):
         return super(NewsPostForm, self).__init__(*args, **kwargs)

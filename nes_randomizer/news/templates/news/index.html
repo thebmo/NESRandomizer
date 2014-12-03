@@ -1,15 +1,9 @@
 {% extends "mysite/base.html" %}
 {% block content %}
-<h1>News Updates!</h1>
+<h1>News Updates!</h1><br>
+{% include "news/news_view.html" %}
 
-{% for post in posts %}
-    <div class="block">
-        {{ post.title }}<br>
-        {{ post.pub_date }}<br>
-        {{ post.body }}
-    </div><br>
-{% endfor %}
-
+{% block blog %}{% endblock blog %}
 
 
 {% endblock %}

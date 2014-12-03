@@ -1,12 +1,20 @@
 {% block blog %}
-
-<div class="block" id="news">
-    <p>
-        test content weeee
-    </p>
-    <p>
-        this is a second paragraph.
-    </p>
+{% if posts %}
+    {% for post in posts %}
+        <div class="block" id="news">
+            {{ post.pub_date }} <i>posted by {{ post.user }}</i>
+            <h3>{{ post.title }}</h3>
+            {{ post.body | safe}}
+            
+        </div>
+        <br />
+    {% endfor %}
+{% elif post %}
+    <div class="block" id="news">
+        {{ post.pub_date }} <i>posted by {{ post.user }}</i>
+        <h3>{{ post.title }}</h3>
+        {{ post.body | safe}}
     
-</div>
+    </div>
+{% endif %}
 {% endblock blog %}
