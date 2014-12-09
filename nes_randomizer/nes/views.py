@@ -6,7 +6,7 @@ from . import forms
 from .templatetags import nes_extras as NES
 
 
-# Create your views here.
+# indvidual game details view
 def game_details(request, game_id):
     template = 'nes/game_details.html'
     game = Game.objects.get(id=game_id)
@@ -15,9 +15,19 @@ def game_details(request, game_id):
     amazon_game = NES.fetch_from_amazon(game)
     desc = NES.fetch_game_html(game)
     videos = NES.fetch_game_videos(game)
-    return render(request, template, {'game': game, 'game_url': game_url, 'game_search': game_search, 'amazon_game': amazon_game, 'desc': desc, 'videos': videos})
+    template_vars = {
+        'game': game,
+        'game_url': game_url,
+        'game_search': game_search,
+        'amazon_game': amazon_game,
+        'desc': desc,
+        'videos': videos
+        }
+
+    return render(request, template, template_vars)
 
 
+# NES Splash page, list of all games or just searched titles
 def search_games(request):
     template = 'nes/search_games.html'
     errors = []
@@ -52,12 +62,19 @@ def search_games(request):
 
         if not games:
             errors.append('No games found that match this search.')
+
     else:
         games = Game.objects.all()
-    return render(request, template, {'errors': errors, 'games': games})
+
+    template_vars = {
+        'errors': errors,
+        'games': games
+        }
+
+    return render(request, template, template_vars)
 
 
-# the index view
+# the index view, this is no longer visible
 def index(request):
     template = 'nes/index.html'
 
@@ -70,6 +87,7 @@ def random_game(request):
     errors = []
     # debug = True
     debug = False
+    template_vars = {}
 
     if 'selection' in request.POST:
         params = {
@@ -99,5 +117,14 @@ def random_game(request):
         else:
             errors.append('No games match this criteria. Remove some filters!')
 
-        return render(request, template, {'game': random_game, 'selection': params['selection'], 'beaten': params['beaten'], 'genres': params['genres'], 'game_url': game_url, 'errors': errors, 'debug': debug})
-    return render(request, template,)
+        template_vars = {
+            'game': random_game,
+            'selection': params['selection'],
+            'beaten': params['beaten'],
+            'genres': params['genres'],
+            'game_url': game_url,
+            'errors': errors,
+            'debug': debug
+            }
+
+    return render(request, template, template_vars)
