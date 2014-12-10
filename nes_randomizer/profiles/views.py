@@ -45,7 +45,13 @@ def edit_field(request):
                     errors.append('Passwords do not match.')
             else:
                 errors.append('Current password invalid')
-    return render(request, template, {'field': field, 'errors': errors, 'notes': notes})
+    template_vars = {
+        'field': field,
+        'errors': errors,
+        'notes': notes
+        }
+
+    return render(request, template, template_vars)
 
 
 # the profile view
@@ -61,8 +67,13 @@ def view_profile(request):
     # game info
     owned = NES.fetch_owned(request.user)
     beaten = NES.fetch_beaten(request.user)
+    template_vars = {
+        'email': email,
+        'owned': owned,
+        'beaten': beaten
+        }
 
-    return render(request, template, {'email': email, 'owned': owned, 'beaten': beaten})
+    return render(request, template, template_vars)
 
 
 # handles the editing of beaten or owned games in the profile
@@ -73,6 +84,7 @@ def edit_games(request):
         return redirect('index',)
 
     template = 'profiles/edit_games.html'
+    template_vars = {}
 
     # sets editing mode owned/beaten
     if 'owned_games' in request.path:
@@ -122,4 +134,10 @@ def edit_games(request):
         if game not in mode_games:
             games.append(game)
 
-    return render(request, template, {'title': title, 'games': games, 'mode_games': mode_games})
+    template_vars = {
+        'title': title,
+        'games': games,
+        'mode_games': mode_games
+        }
+
+    return render(request, template, template_vars)
