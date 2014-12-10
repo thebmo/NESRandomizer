@@ -10,18 +10,23 @@ from news import forms as NEWS
 
 # Create your views here.
 
+
 # new post page
 def new_post(request):
     if request.user.is_staff:
         template = 'tools/news_update.html'
         news_form = NEWS.NewsPostForm(initial={'user': request.user.id})
-        
+
         if request.POST:
             if request.POST['title'] != '' and request.POST['body'] != '':
-                p = NewsPost(title=request.POST['title'], body=request.POST['body'], user_id=request.user.id)
+                p = NewsPost(
+                    title=request.POST['title'],
+                    body=request.POST['body'],
+                    user_id=request.user.id
+                    )
                 p.save()
-        
-        return render( request, template, {'news_form': news_form})
+
+        return render(request, template, {'news_form': news_form})
 
     else:
         return redirect('index')
@@ -33,8 +38,13 @@ def lookup_user(request, user_id):
     user = User.objects.get(pk=user_id)
     beaten = NES.fetch_beaten(user)
     owned = NES.fetch_owned(user)
+    template_vars = {
+        'user': user,
+        'beaten': beaten,
+        'owned': owned
+        }
 
-    return render(request, template, { 'user':user, 'beaten':beaten, 'owned':owned })
+    return render(request, template, template_vars)
 
 
 # index of performable actions
@@ -54,7 +64,7 @@ def users(request):
         users = list(User.objects.all())
         users.remove(users[0])
 
-        return render(request, template, { 'users':users })
+        return render(request, template, {'users': users})
     else:
         return redirect('index')
 
@@ -64,7 +74,7 @@ def delete_user(request, user_id):
     if request.user.is_staff:
         user = User.objects.get(pk=user_id)
         TOOLS.delete_user(user)
-        
+
         return redirect('/tools/users/')
 
     else:
