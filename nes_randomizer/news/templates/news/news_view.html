@@ -4,7 +4,10 @@
         <div class="block" id="news">
             {{ post.pub_date }} <i>posted by {{ post.user }}</i>
             <h3>{{ post.title }}</h3>
-            {{ post.body | safe}}
+            {{ post.body | safe}}<br>
+            {% if user.is_authenticated %}
+                <i><a href="{% url 'news:delete' post.id %}">DELETE</a></i><br>
+            {% endif %}
             
         </div>
         <br />
