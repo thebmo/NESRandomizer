@@ -14,7 +14,7 @@ from news import forms as NEWS
 # new post page
 def new_post(request):
     if request.user.is_staff:
-        template = 'tools/news_update.html'
+        template = 'tools/news_post.html'
         news_form = NEWS.NewsPostForm(initial={'user': request.user.id})
 
         if request.POST:

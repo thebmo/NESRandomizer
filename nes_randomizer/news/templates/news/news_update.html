@@ -1,0 +1,17 @@
+{% extends "mysite/base.html" %}
+{% block content %}
+<h1>Post Update</h1>
+<div class=block style='border-radius:25px; padding: 25px;'>
+    <form action="" method="POST">
+        {% csrf_token %}
+        {% for field in news_form %}
+
+            {{ field.label }}:
+            <br>{{ field }}<br><br>
+
+        {% endfor %}
+        
+        <input id="save_post" type="submit" value="Post!">
+</div>
+
+{% endblock %}
