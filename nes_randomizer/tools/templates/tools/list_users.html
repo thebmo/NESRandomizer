@@ -2,14 +2,32 @@
 {% block content %}
 <h1>Delete Users</h1>
 {% if users %}
+   <script>
+    function confirmUserDelete(user) {
+        if(confirm('Do you really want to delete user: ' + user + '?')) {
+            return true;
+        }
+        else {
+            return false;
+        }
+            
+    }
+    </script>
+    
+    
     <div class="user">
         <table>
             <tr><td>ID</td><td>username</td><td>delete</td></tr>
             {% for  user in users %}
                 <tr><td><center>{{ user.id }}<center></td>
                 <td><a href="{% url 'tools:profile' user.id %}">{{ user.username }}</a></td>
-                <td><center>
-                <a href="{% url 'tools:delete' user.id %}">X</center></td></tr>
+                <td>
+                {% if user.is_authenticated %}
+                    <center>
+                    <a id="delete" title="Delete this User" href="{% url 'tools:delete' user.id %}"  onclick="return confirmUserDelete('{{user.username}}');">
+                    X</center></td>
+                {% endif %}
+                </tr>
             {% endfor %}
         </table>
     </div>
