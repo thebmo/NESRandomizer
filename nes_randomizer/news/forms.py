@@ -4,13 +4,12 @@ from django.core.exceptions import ValidationError
 from .models import NewsPost
 
 class NewsPostForm(forms.ModelForm):
-    
 
     class Meta:
         model = NewsPost
         fields = ['title', 'body']
         widgets = {
-            'body': forms.Textarea(attrs={'rows':10, 'cols':85}),
+            'body': forms.Textarea(attrs={'rows':10, 'cols':85, 'class':'jqte-test'}),
             }
     
     def __init__(self, *args, **kwargs):
