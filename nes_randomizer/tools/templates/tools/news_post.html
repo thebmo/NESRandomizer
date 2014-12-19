@@ -1,14 +1,26 @@
 {% extends "mysite/base.html" %}
 {% block content %}
 {% load staticfiles %}
-<link rel="stylesheet" type="text/css" href="{% static 'mysite/jquery-te-1.4.0.css' %}" />
+
 
 <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
-<script type="text/javascript" src="{% static 'mysite/jquery-te-1.4.0.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'mysite/ckeditor/ckeditor.js' %}"></script>
+<style>
 
+    /* Style the CKEditor element to look like a textfield */
+    .cke_textarea_inline
+    {
+        padding: 10px;
+        height: 200px;
+        overflow: auto;
+
+        border: 1px solid white;
+        -webkit-appearance: textfield;
+    }
+
+</style>
 
 <h1>New Post</h1>
-
 
 <div class=block style='border-radius:25px; padding: 25px;'>
     <form action="" method="POST">
@@ -19,19 +31,11 @@
             <br>{{ field }}<br><br>
 
         {% endfor %}
-        
         <input id="save_post" type="submit" value="Post!">
-    <script>
-        $('.jqte-test').jqte();
-        
-        // settings of status
-        var jqteStatus = true;
-        $(".status").click(function()
-        {
-            jqteStatus = jqteStatus ? false : true;
-            $('.jqte-test').jqte({"status" : jqteStatus})
-        });
-    </script>
+
+        <script>
+		CKEDITOR.inline( 'body' );
+        </script>
 </div>
 
 {% endblock %}

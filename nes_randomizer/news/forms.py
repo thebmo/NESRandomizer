@@ -9,7 +9,8 @@ class NewsPostForm(forms.ModelForm):
         model = NewsPost
         fields = ['title', 'body']
         widgets = {
-            'body': forms.Textarea(attrs={'rows':10, 'cols':85, 'class':'jqte-test'}),
+            'title': forms.TextInput(attrs={'required': 'true'}),
+            'body' : forms.Textarea(attrs={'rows':10, 'cols':85, 'name':'body'}),
             }
     
     def __init__(self, *args, **kwargs):
