@@ -19,8 +19,10 @@ div .wrapper {
     width: auto;
     }
 div .inner_wrapper {
-    margin-left: 15%;
-    margin-right: 20%;
+/*     margin-left: 15%;
+    margin-right: 20%; */
+    margin-left: auto;
+    margin-right: auto;
     width: 700px;
     min-height: 900px;
     background-color: gray;

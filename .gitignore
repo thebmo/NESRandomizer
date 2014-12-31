@@ -14,3 +14,5 @@ nes_randomizer/nes/templatetags/nes_extras.pyc
 *.sqlite3
 nes_randomizer/db.sqlite3
 jQuery-TE_v.1.4.0.zip
+ckeditor_4.4.6_80899141a213.zip
+nes_randomizer/static/mysite/ckeditor/samples/*
