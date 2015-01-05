@@ -13,14 +13,14 @@ def game_details(request, game_id):
     game_url = NES.create_google_url(game)
     game_search = NES.create_search_string(game)
     amazon_game = NES.fetch_from_amazon(game)
-    desc = NES.fetch_game_html(game)
+    # desc = NES.fetch_game_html(game)
     videos = NES.fetch_game_videos(game)
     template_vars = {
         'game': game,
         'game_url': game_url,
         'game_search': game_search,
         'amazon_game': amazon_game,
-        'desc': desc,
+        # 'desc': desc,
         'videos': videos
         }
 
