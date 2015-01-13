@@ -13,6 +13,7 @@ class Game(models.Model):
     license = models.CharField(max_length=200)
     rating = models.FloatField(default=0)
     votes = models.IntegerField(default=0)
+    description = models.TextField(max_length=2000)
 
     def __unicode__(self):
         return self.title

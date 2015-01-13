@@ -18,10 +18,12 @@ class NesExtrasFunctions(TestCase):
         try:
             NES.fetch_game_html(game)
             return True
+        
         except:
             pass
             print "Failed: %s" % game.title
             return False
-        
+
+            
     for game in games:
         assert nes_guide_url_builder(game) == True
