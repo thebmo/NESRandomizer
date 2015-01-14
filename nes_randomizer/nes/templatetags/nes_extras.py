@@ -87,6 +87,8 @@ def fetch_game_videos(game):
     return v_keys
 
 
+# this is now depracated and no longer used
+# descriptions now stored in the db
 # returns the html from nesguide.com
 def fetch_game_html(game):
     title = game.title
