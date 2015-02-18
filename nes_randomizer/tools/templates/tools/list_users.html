@@ -17,12 +17,16 @@
     
     <div class="user">
         <table>
-            <tr><td>ID</td><td>username</td><td>delete</td></tr>
+            <tr><td>ID</td><td>username</td><td>last login</td><td>date joined</td>
+            {% if user.is_authenticated %}<td>delete</td>{% endif %}
+            </tr>
             {% for  user in users %}
                 <tr><td><center>{{ user.id }}<center></td>
                 <td><a href="{% url 'tools:profile' user.id %}">{{ user.username }}</a></td>
-                <td>
+                <td>{{ user.last_login }}</td>
+                <td>{{ user.date_joined }}</td>
                 {% if user.is_authenticated %}
+                    <td>
                     <center>
                     <a id="delete" title="Delete this User" href="{% url 'tools:delete' user.id %}"  onclick="return confirmUserDelete('{{user.username}}');">
                     X</center></td>
