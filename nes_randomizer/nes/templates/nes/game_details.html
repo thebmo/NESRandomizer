@@ -46,7 +46,7 @@ $(document).ready(function() {
 </ul>
 <div id="tab3" class = "tab_content">
     {% if videos %}
-        <table class="games" width="100%">
+        <table class="game_details" width="100%">
             <tbody>
                 {% for video in videos %}
                     <tr><td>
@@ -61,7 +61,7 @@ $(document).ready(function() {
 <div id="results" class = "tab_content"></div>
 <div id="tab2" class = "tab_content">
     {% if amazon_game %}
-        <table class="games" width="100%">
+        <table class="game_details" width="100%">
             <tbody>
                 <tr><td>
                     <img src="{{ amazon_game.medium_image_url }}"</td><td>
@@ -88,7 +88,7 @@ function _cb_findItemsByKeywords(root)
 {
   var items = root.findItemsByKeywordsResponse[0].searchResult[0].item || [];
   var html = [];
-  html.push('<table class="games" width="100%" ><tbody>');
+  html.push('<table class="game_details" width="100%" ><tbody>');
 
   for (var i = 0; i < items.length; ++i)  
   {

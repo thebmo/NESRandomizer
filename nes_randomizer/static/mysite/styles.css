@@ -76,11 +76,20 @@ h3 {
 
     
 /* browse game styles */
-.games td {
-    border: 1px solid black;
+.game_details td {
     background: black;
+    }
+
+.games td {
+    /* background: black; */
     padding-left: 5px;
     padding-right: 5px;
+    }
+.games table tr:nth-child(odd) {
+    background: black;
+    }
+.games table tr:nth-child(even) {
+    background:#19191D;
     }
 .games a:hover {
     color: white;
