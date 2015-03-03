@@ -1,0 +1,72 @@
+{% extends "mysite/base.html" %}
+{% block content %}
+
+{% load staticfiles %}
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+<script type="text/javascript" src="{% static 'mysite/Chartjs/Chart.js' %}"></script>
+
+<h1>Most Owned by Genre</h1>
+<div class="block" id="main">
+    <div class="left">
+        <table class="report" width=300>
+        <tr><td><strong>Genre</td><td>Total</strong></td></tr>
+            {% for owned in most_owned %}
+            <tr>
+                <td>{{ owned.0 }}</td>
+                <td>{{ owned.2 }}</td>
+            </tr>
+            {% endfor %}
+        
+        </table>
+    </div>
+    
+
+    <div class="rgiht" id="canvas-holder">
+        <canvas id="chart-area" width="300" height="300"/>
+    </div>
+    
+    <div style="clear: both;"></div>
+</div>
+
+
+<!-- Color script -->
+<script>
+function getRandomColor() {
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+</script>
+
+
+<!-- Pie script -->
+<script>
+
+		var pieData = [
+				
+				{% for owned in most_owned %}
+                    {% if owned.1 > 1 %}
+                    {
+                        value: {{owned.1}},
+                        color: getRandomColor(),
+                        highlight: "lime",
+                        label: "{{owned.0}} %"
+                    },
+                    {% endif %}
+                {% endfor %}
+
+			];
+
+			window.onload = function(){
+				var ctx = document.getElementById("chart-area").getContext("2d");
+				window.myPie = new Chart(ctx).Pie(pieData);
+			};
+
+
+
+	</script>
+
+{% endblock %}

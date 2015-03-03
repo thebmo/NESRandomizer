@@ -7,6 +7,31 @@ from amazon.api import AmazonAPI
 from bs4 import BeautifulSoup
 
 
+# Returns a list of all game genres
+def get_genres():
+    return [
+        'Action',
+        'Adventure',
+        'Arcade',
+        'Board Game',
+        'Educational',
+        'Fighting',
+        'Gambling',
+        'Game Show',
+        'Light Gun',
+        'Pinball',
+        'Platformer',
+        'Power Glove',
+        'Power Pad',
+        'Puzzle',
+        'RPG',
+        'Racing',
+        'Shooter',
+        'Simulation',
+        'Sports',
+        'Strategy'
+        ]
+
 # returns a list of youtube objects in a list
 def fetch_game_videos(game):
     v_keys = []

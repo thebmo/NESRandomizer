@@ -134,3 +134,17 @@ div .menu a:hover {
     }
     
 /* END TOOLS STYLES */
+
+
+/* REPORT CHARTS */
+table.report tr:nth-child(even) {
+    background: black;
+    }
+table.report tr:nth-child(odd) {
+    background:#19191D;
+    }
+table.report {
+    padding-right: 15px;
+    }
+    
+/* END REPORT CHARTS */

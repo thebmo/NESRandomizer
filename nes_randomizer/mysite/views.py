@@ -32,8 +32,8 @@ def fourohfour(request):
 
 # index view
 def index(request):
-    most_owned = REP.fetch_most_owned()
-    most_beaten = REP.fetch_most_beaten()
+    most_owned = REP.fetch_most(owned=True)
+    most_beaten = REP.fetch_most(beaten=True)
     user = authenticate(username='', password='')
     post = []
     if NewsPost.objects.all():
