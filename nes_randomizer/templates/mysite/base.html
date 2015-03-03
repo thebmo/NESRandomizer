@@ -32,6 +32,7 @@
                         <a href="{% url 'nes:games' %}">NES</a> | 
                         <a href="{% url 'nes:random' %}">RANDOM</a> | 
                         <a href="{% url 'news:index' %}">NEWS</a> | 
+                        <a href="{% url 'reports:index' %}">REPORTS</a> | 
                         {% if user.is_staff %}
                             <a href="{% url 'tools:index' %}">TOOLS</a> |
                             <a href="/admin/" target = '_blank'>ADMIN</a> |

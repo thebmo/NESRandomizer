@@ -1,0 +1,22 @@
+{% extends "mysite/base.html" %}
+{% block content %}
+<h1>Reports</h1>
+<div class="block" id="main">
+    
+    <table width=100%>
+    <tr><td>Most Owned Games</td><td align=right>Most Beaten Games</td></tr>
+    <tr><td align=left>
+        {% for owned in most_owned %}
+            {{ owned.1 }}| <a href = '{% url 'nes:details' owned.2 %}' target = '_blank'>{{ owned.0 }}</a><br/>
+        {% endfor %}
+    </td>
+    <td align=right>
+        {% for beaten in most_beaten %}
+            <a href = '{% url 'nes:details' beaten.2 %}' target = '_blank'>{{ beaten.0 }}</a> | {{ beaten.1 }}<br/>
+        {% endfor %}
+    </td></tr>
+    </table>
+</div>
+
+
+{% endblock %}
