@@ -4,8 +4,8 @@ from django.views import generic
 from django.contrib.auth import authenticate, logout, login
 
 from news.models import NewsPost
-from nes.models import Game
-from nes.templatetags import nes_extras as NES
+# from nes.models import Game
+from reports.templatetags import reports_extras as REP
 
 
 # class IndexView(generic.ListView):
@@ -18,22 +18,22 @@ def fourohfour(request):
 
 
 # clear this view after
-def import_games(request):
-    file = 'C:\\Users\\bmo\\Desktop\\nes_parsed.txt'
-    with open(file, 'r') as f:
-        for line in f.readlines():
-            game = line.replace('\n', '').split('|')
+# def import_games(request):
+    # file = 'C:\\Users\\bmo\\Desktop\\nes_parsed.txt'
+    # with open(file, 'r') as f:
+        # for line in f.readlines():
+            # game = line.replace('\n', '').split('|')
         
-            g = Game(title=game[0], year=game[1],publisher=game[2],
-                region=game[3], format=game[4], license=game[5], genre=game[6])
-            g.save()
-    return redirect('profiles/view_profile.html')
+            # g = Game(title=game[0], year=game[1],publisher=game[2],
+                # region=game[3], format=game[4], license=game[5], genre=game[6])
+            # g.save()
+    # return redirect('profiles/view_profile.html')
 
 
 # index view
 def index(request):
-    most_owned = NES.fetch_most_owned()
-    most_beaten = NES.fetch_most_beaten()
+    most_owned = REP.fetch_most_owned()
+    most_beaten = REP.fetch_most_beaten()
     user = authenticate(username='', password='')
     post = []
     if NewsPost.objects.all():

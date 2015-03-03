@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'profiles',
     'tools',
     'news',
+    'reports'
 )
 
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
