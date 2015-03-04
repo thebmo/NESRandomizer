@@ -1,6 +1,6 @@
 {% extends "mysite/base.html" %}
 {% block content %}
-<h1>Reports</h1>
+<h1>Most Owned | Beaten Games</h1>
 <div class="block" id="main">
     
     <table width=100%>
@@ -18,5 +18,122 @@
     </table>
 </div>
 
+{% load staticfiles %}
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+<script type="text/javascript" src="{% static 'mysite/Chartjs/Chart.js' %}"></script>
+
+
+
+<h1>Most Owned Genre</h1>
+<div class="block" id="main">
+    <div class="left">
+        <table class="report" width=300>
+        <tr><td><strong>Genre</td><td>Total</strong></td></tr>
+            {% for owned in genre_owned %}
+            <tr>
+                <td>{{ owned.0 }}</td>
+                <td>{{ owned.2 }}</td>
+            </tr>
+            {% endfor %}
+        
+        </table>
+    </div>
+    
+
+    <div id="canvas-holder">
+        <canvas id="chart-area" width="300" height="400"/>
+    </div>
+    
+    <div style="clear: both;"></div>
+</div>
+
+<br/>
+
+<h1>Most Beaten Genre</h1>
+<div class="block" id="main">
+    <div class="left">
+        <table class="report" width=300>
+        <tr><td><strong>Genre</td><td>Total</strong></td></tr>
+            {% for owned in genre_beaten %}
+            <tr>
+                <td>{{ owned.0 }}</td>
+                <td>{{ owned.2 }}</td>
+            </tr>
+            {% endfor %}
+        
+        </table>
+    </div>
+    
+
+    <div id="canvas-holder">
+        <canvas id="chart-area2" width="300" height="400"/>
+    </div>
+    
+    <div style="clear: both;"></div>
+</div>
+
+<!-- Color script -->
+<script>
+function getRandomColor() {
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+</script>
+
+
+<!-- Pie script OWNED -->
+<script>
+
+		var pieData = [
+				
+				{% for owned in genre_owned %}
+                    {% if owned.1 > 1 %}
+                    {
+                        value: {{owned.1}},
+                        color: getRandomColor(),
+                        highlight: "lime",
+                        label: "{{owned.0}} %"
+                    },
+                    {% endif %}
+                {% endfor %}
+
+			];
+
+			window.onload = function(){
+
+			};
+
+
+
+		var pieData2 = [
+				
+				{% for owned in genre_beaten %}
+                    {% if owned.1 > 1 %}
+                    {
+                        value: {{owned.1}},
+                        color: getRandomColor(),
+                        highlight: "lime",
+                        label: "{{owned.0}} %"
+                    },
+                    {% endif %}
+                {% endfor %}
+
+			];
+
+			window.onload = function(){
+                var ctx = document.getElementById("chart-area").getContext("2d");
+				window.myPie = new Chart(ctx).Pie(pieData);
+                
+                var ctx2 = document.getElementById("chart-area2").getContext("2d");
+				window.myPie2 = new Chart(ctx2).Pie(pieData2);
+			};
+
+
+
+</script>
 
 {% endblock %}
