@@ -35,35 +35,14 @@
             <fieldset style='width:500px'>
             <legend>Genres</legend>
                 <table>
-                    <tr><td>
-                    <input type="checkbox" name="genre" value="Action" {% if 'Action' in genres %}checked{% endif %}>Action</td><td>
-                    <input type="checkbox" name="genre" value="Adventure" {% if 'Adventure' in genres %}checked{% endif %}>Adventure</td><td>
-                    <input type="checkbox" name="genre" value="Arcade" {% if 'Arcade' in genres %}checked{% endif %}>Arcade</td><td>
-                    <input type="checkbox" name="genre" value="Board Game" {% if 'Board Game' in genres %}checked{% endif %}>Board Game</td></tr>
-                    
-                    <tr><td>
-                    <input type="checkbox" name="genre" value="Educational" {% if 'Educational' in genres %}checked{% endif %}>Educational</td><td>
-                    <input type="checkbox" name="genre" value="Fighting" {% if 'Fighting' in genres %}checked{% endif %}>Fighting</td><td>
-                    <input type="checkbox" name="genre" value="Gambling" {% if 'Gambling' in genres %}checked{% endif %}>Gambling</td><td>
-                    <input type="checkbox" name="genre" value="Game Show" {% if 'Game Show' in genres %}checked{% endif %}>Game Show</td></tr>
-                    
-                    <tr><td>
-                    <input type="checkbox" name="genre" value="Light Gun" {% if 'Light Gun' in genres %}checked{% endif %}>Light Gun</td><td>
-                    <input type="checkbox" name="genre" value="Pinball" {% if 'Pinball' in genres %}checked{% endif %}>Pinball</td><td>
-                    <input type="checkbox" name="genre" value="Platformer" {% if 'Platformer' in genres %}checked{% endif %}>Platformer</td><td>
-                    <input type="checkbox" name="genre" value="Power Glove" {% if 'Power Glove' in genres %}checked{% endif %}>Power Glove</td></tr>
-                    
-                    <tr><td>
-                    <input type="checkbox" name="genre" value="Power Pad" {% if 'Power Pad' in genres %}checked{% endif %}>Power Pad</td><td>
-                    <input type="checkbox" name="genre" value="Puzzle" {% if 'Puzzle' in genres %}checked{% endif %}>Puzzle</td><td>
-                    <input type="checkbox" name="genre" value="RPG" {% if 'RPG' in genres %}checked{% endif %}>RPG</td><td>
-                    <input type="checkbox" name="genre" value="Racing" {% if 'Racing' in genres %}checked{% endif %}>Racing</td></tr>
-                    
-                    <tr><td>
-                    <input type="checkbox" name="genre" value="Shooter" {% if 'Shooter' in genres %}checked{% endif %}>Shooter</td><td>
-                    <input type="checkbox" name="genre" value="Simulation" {% if 'Simulation' in genres %}checked{% endif %}>Simulation</td><td>
-                    <input type="checkbox" name="genre" value="Sports" {% if 'Sports' in genres %}checked{% endif %}>Sports</td><td>
-                    <input type="checkbox" name="genre" value="Strategy" {% if 'Strategy' in genres %}checked{% endif %}>Strategy</td></tr>
+                    <tr>
+                    {% for g in all_genres %}
+                        
+                        <td><input type="checkbox" name="genre" value={{ g }} {% if g in genres %}checked{% endif %}>{{ g }}</td>
+                        {% cycle '' '' '' '</tr><tr>' %}
+                    {% endfor %}
+                    </tr>
+
                 </table>
             <!-- <input type="checkbox" name="genre" value=""> -->
             </fieldset>

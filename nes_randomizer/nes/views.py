@@ -86,6 +86,7 @@ def random_game(request):
     # debug = True
     debug = False
     template_vars = {}
+    
 
     if 'selection' in request.POST:
         params = {
@@ -124,5 +125,7 @@ def random_game(request):
             'errors': errors,
             'debug': debug
             }
-
+    
+    template_vars['all_genres'] = NES.get_genres()
+    
     return render(request, template, template_vars)
