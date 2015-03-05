@@ -7,6 +7,16 @@ from amazon.api import AmazonAPI
 from bs4 import BeautifulSoup
 
 
+# Returns a game object
+# Accepts a game id
+def fetch_game(game_id, title=False):
+    game = Game.objects.get(pk=int(game_id))
+    
+    if title:
+        game = game.title
+    
+    return  game
+
 # Returns a list of all game genres
 def get_genres():
     return [
@@ -31,6 +41,7 @@ def get_genres():
         'Sports',
         'Strategy'
         ]
+
 
 # returns a list of youtube objects in a list
 def fetch_game_videos(game):
