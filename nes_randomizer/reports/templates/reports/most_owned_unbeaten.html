@@ -1,0 +1,21 @@
+{% extends "mysite/base.html" %}
+{% block content %}
+
+{% load staticfiles %}
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+<script type="text/javascript" src="{% static 'mysite/Chartjs/Chart.js' %}"></script>
+
+<h1> Most Owned But Unbeaten</h1>
+
+<div class="block" id="main">
+    <table class="report">
+        <tr><td>title</td><td>owned</td><td>beaten</td><td>DIF</td><td>DIF % </td></tr>
+    {% for s in stats %}
+        <tr><td>
+        <a href = '{% url 'nes:details' s.1 %}' target = '_blank'>{{ s.0 }}</a></td>
+        <td>{{ s.2 }}</td><td>{{ s.3 }}</td><td>{{ s.4 }}</td><td>{{ s.5 }}</td></tr>
+    {% endfor %}
+    </table>
+</div>
+
+{% endblock %}
