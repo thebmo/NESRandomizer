@@ -54,7 +54,7 @@ def unbeaten(request):
     for k in owned_dict:
         diff = abs(owned_dict[k]-beaten_dict[k])
         if diff != 0 and owned_dict[k] != 0:
-            diff_percent = diff/float(owned_dict[k])
+            diff_percent = "{0:.2f}".format((diff/float(owned_dict[k]) * 100))
         else: diff_percent = 0
         stats.append(
             [

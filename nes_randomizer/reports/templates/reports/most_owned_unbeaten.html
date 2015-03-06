@@ -9,7 +9,7 @@
 
 <div class="block" id="main">
     <table class="report">
-        <tr><td>title</td><td>owned</td><td>beaten</td><td>DIF</td><td>DIF % </td></tr>
+        <tr><td>Title</td><td>Owned Count</td><td>Beaten Count</td><td>DIF </td><td> DIF % </td></tr>
     {% for s in stats %}
         <tr><td>
         <a href = '{% url 'nes:details' s.1 %}' target = '_blank'>{{ s.0 }}</a></td>
