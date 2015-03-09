@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404 as GO404
 from django.views import generic
 from .models import *
 import random
@@ -9,7 +9,11 @@ from .templatetags import nes_extras as NES
 # indvidual game details view
 def game_details(request, game_id):
     template = 'nes/game_details.html'
-    game = Game.objects.get(id=game_id)
+    
+    # gets the game of throws a 404
+    game = GO404(Game, id=game_id)
+
+    
     game_url = NES.create_google_url(game)
     game_search = NES.create_search_string(game)
     amazon_game = NES.fetch_from_amazon(game)
