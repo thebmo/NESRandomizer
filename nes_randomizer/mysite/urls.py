@@ -1,11 +1,11 @@
 from django.conf.urls import patterns, include, url
+
 from django.contrib import admin
 from . import views
 
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Examples:
     url(r'^$', views.index, name='index'),
     url(r'^login/', views.login_view, name='login'),
     url(r'^logout/', views.logout_view, name='logout'),
@@ -17,6 +17,7 @@ urlpatterns = patterns('',
     url(r'^reports/', include('reports.urls', namespace='reports')),
     url(r'^news/', include('news.urls', namespace='news')),
     url(r'^admin/', include(admin.site.urls), name='admin'),
-    url(r'^.', views.fourohfour, name='404'),
     
 )
+
+handler404 = 'mysite.views.fourohfour'
