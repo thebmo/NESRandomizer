@@ -13,7 +13,6 @@ def game_details(request, game_id):
     # gets the game of throws a 404
     game = GO404(Game, id=game_id)
 
-    
     game_url = NES.create_google_url(game)
     game_search = NES.create_search_string(game)
     amazon_game = NES.fetch_from_amazon(game)
