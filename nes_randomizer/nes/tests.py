@@ -2,28 +2,37 @@ from django.test import TestCase
 from .templatetags import nes_extras as NES
 from nes.models import Game
 import urllib2
-from random import random
 
 # Create your tests here.
 
-class NesExtrasFunctions(TestCase):
-    games = Game.objects.all()
-    
-        
-    def nes_guide_url_builder(game):
-        """
-        nes_guid_url_builder() should return false if all URLs do not
-        404
-        """
-        try:
-            NES.fetch_game_html(game)
-            return True
-        
-        except:
-            pass
-            print "Failed: %s" % game.title
-            return False
+class NesViewsTests(TestCase):
+    link = 'http://127.0.0.1:8000/nes/games/'
 
-            
-    for game in games:
-        assert nes_guide_url_builder(game) == True
+    def test_game_details_view(self):
+        games = Game.objects.all()
+
+        for game in games:
+            print game.id
+
+        g_link = ''.join((self.link, '123'))
+        b_link = ''.join((self.link, '999'))
+
+
+        g_url = urllib2.urlopen(g_link)
+
+        self.assertEquals(
+            g_url.getcode(),
+            200,
+            )
+        try:
+            b_url = urllib2.urlopen(b_link)
+            self.assertEquals(
+                b_url.getcode(),
+                404,
+                )
+
+        except urllib2.HTTPError as e:
+            self.assertEquals(
+                e.getcode(),
+                404,
+                )
