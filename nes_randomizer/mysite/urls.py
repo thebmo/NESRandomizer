@@ -21,3 +21,4 @@ urlpatterns = patterns('',
 )
 
 handler404 = 'mysite.views.fourohfour'
+handler500 = 'mysite.views.fourohfour'

@@ -14,7 +14,7 @@ from reports.templatetags import reports_extras as REP
 # 404 view
 def fourohfour(request):
     template = 'mysite/404.html'
-    return render(request, template, )
+    return render(request, template, status=404)
 
 
 # clear this view after
