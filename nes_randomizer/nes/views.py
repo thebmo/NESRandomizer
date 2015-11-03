@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404 as GO404
+from django.shortcuts import render , get_object_or_404 as GO404
 from django.views import generic
 from .models import *
 import random
@@ -16,13 +16,13 @@ def game_details(request, game_id):
     game_url = NES.create_google_url(game)
     game_search = NES.create_search_string(game)
     amazon_game = NES.fetch_from_amazon(game)
-    videos = NES.fetch_game_videos(game)
+    # videos = NES.fetch_game_videos(game)
     template_vars = {
         'game': game,
         'game_url': game_url,
         'game_search': game_search,
         'amazon_game': amazon_game,
-        'videos': videos
+        # 'videos': videos
         }
 
     return render(request, template, template_vars)
